@@ -1,4 +1,4 @@
-package com.company;
+package com.company.bean;
 
 public class channel_info {
     String source_id;

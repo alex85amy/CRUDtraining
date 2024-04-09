@@ -21,25 +21,22 @@ public class CLI{
             String[] parts = command.split(" ");
 
             switch (parts[0]) {
-                case "import":
+                case "import" -> {
                     if (parts.length != 2) {
                         System.out.println("Usage: import <file_path>");
                         break;
                     }
                     importData(parts[1]);
-                    break;
-                case "export":
+                }
+                case "export" -> {
                     if (parts.length != 2) {
                         System.out.println("Usage: export <file_path>");
                         break;
                     }
                     exportData(parts[1]);
-                    break;
-                case "exit":
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Invalid command");
+                }
+                case "exit" -> running = false;
+                default -> System.out.println("Invalid command");
             }
         }
 
@@ -54,8 +51,6 @@ public class CLI{
             System.out.println("JSON data imported successfully");
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + filePath);
-        } catch (IOException | JsonException e) {
-            System.out.println("Error reading JSON file: " + e.getMessage());
         }
     }
 
