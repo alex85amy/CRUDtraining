@@ -18,21 +18,21 @@ public class demo {
         switch (operation) {
             case "create":
                 if (args.length != 3) {
-                    System.out.println("Usage: java SimpleCRUDCLI create <name> <age>");
+                    System.out.println("Usage: java SimpleCRUDCLI create <category> <name>");
                     return;
                 }
                 createRecord(args[1], args[2]);
                 break;
             case "update":
                 if (args.length != 3) {
-                    System.out.println("Usage: java SimpleCRUDCLI update <id> <name> <age>");
+                    System.out.println("Usage: java SimpleCRUDCLI update <category> <name>");
                     return;
                 }
                 updateRecord(args[1], args[2]);
                 break;
             case "delete":
                 if (args.length != 2) {
-                    System.out.println("Usage: java SimpleCRUDCLI delete <id>");
+                    System.out.println("Usage: java SimpleCRUDCLI delete <category>");
                     return;
                 }
                 deleteRecord(args[1]);
