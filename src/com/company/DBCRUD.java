@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class DBCRUD {
     private Connection connection;
 
-    public void DatabaseManager() {
+    public void DatabaseManager(){
         // Initialize the connection
         try {
             // Load the JDBC driver
@@ -19,5 +19,4 @@ public class DBCRUD {
     }
 
 
-    
 }
