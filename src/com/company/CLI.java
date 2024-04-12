@@ -24,9 +24,9 @@ public class CLI{
 
     private static void importData(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                System.out.println("Imported data: " + line);
+            String data;
+            while ((data = reader.readLine()) != null) {
+                System.out.println("Imported data: " + data);
             }
         } catch (IOException e) {
             System.err.println("Error importing data: " + e.getMessage());
@@ -34,11 +34,6 @@ public class CLI{
     }
 
     private static void exportData(String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write("{ \"example\": \"data\" }");
-            System.out.println("Data exported to " + filePath);
-        } catch (IOException e) {
-            System.err.println("Error exporting data: " + e.getMessage());
-        }
+
     }
 }
