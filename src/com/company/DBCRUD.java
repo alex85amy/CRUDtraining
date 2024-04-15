@@ -1,41 +1,64 @@
 package com.company;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+
+import com.company.bean.ChannelInfo;
+import jakarta.json.*;
 
 import java.io.FileReader;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 
 public class DBCRUD {
     public static void main(String[] args) {
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/training", "root", "abc123");
-            JSONParser parser = new JSONParser();
-            String fileName = "C:/Users/alexlai/Downloads/java-training/general-web-service-master/assets/p_type_2_info.json";
+        try (JsonReader reader = Json.createReader(new FileReader("C:\\\\CRUD\\\\src\\\\com\\\\company\\\\channel_info.json"))) {
+            JsonArray jsonArray = reader.readArray();
 
-            Object obj = parser.parse(new FileReader(fileName));
-            JSONArray jsonArray = (JSONArray) obj;
+            for (int i = 0; i < jsonArray.size(); i++) {
+                JsonObject jsonObject = jsonArray.getJsonObject(i);
 
-            String sql = "INSERT INTO p_type_2_info(category, name) VALUES (?, ?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
+                // 從每個 JSON 物件中擷取需要的資料
+                String sourceId = jsonObject.getString("source_id");
+                String sourceAreaId = jsonObject.getString("source_area_id");
+                int isUsed = jsonObject.getInt("is_used");
+                String pType2 = jsonObject.getString("p_type_2");
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                statement.setString(1, jsonObject.getString("category"));
-                statement.setString(2, jsonObject.getString("name"));
-                statement.executeUpdate();
+                // 建立 Java 物件
+                ChannelInfo channelInfo = new ChannelInfo(sourceId, sourceAreaId, isUsed, pType2);
+
+                // 使用 Java 物件
+                System.out.println("sourceId: " + channelInfo.getSourceId());
+                System.out.println("sourceAreaId: " + channelInfo.getSourceAreaId());
+                System.out.println("isUsed: " + channelInfo.getIsUsed());
+                System.out.println("pType2: " + channelInfo.getPType2());
+                System.out.println();
             }
-
-
-        } catch (SQLException | ParseException | IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+//        try {
+//            // 创建 Gson 实例
+//            Gson gson = new Gson();
+//
+//            // 读取 JSON 文件到对象
+//            FileReader reader = new FileReader("C:\\CRUD\\src\\com\\company\\channel_info.json");
+//            List<ChannelInfo> channelInfos = gson.fromJson(reader, List.class);
+//
+//            // 将对象数组转换为列表
+//            List<ChannelInfo> channelInfoList = new ArrayList<>();
+//            for (ChannelInfo channelInfo: channelInfos){
+//                channelInfoList.add(channelInfo);
+//            }
+//
+//            // 打印每个人的信息
+//            for(ChannelInfo channelInfo : channelInfos) {
+//                System.out.println("sourceId: " + channelInfo.getSourceId());
+//                System.out.println("sourceAreaId: " + channelInfo.getSourceAreaId());
+//                System.out.println("isUsed: " + channelInfo.getIsUsed());
+//                System.out.println("pType2: " + channelInfo.getPType2());
+//                System.out.println();
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 }
