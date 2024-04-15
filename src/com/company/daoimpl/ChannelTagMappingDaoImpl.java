@@ -1,23 +1,21 @@
 package com.company.daoimpl;
 
-import com.company.bean.TagInfo;
-import com.company.dao.TagInfoDao;
+import com.company.bean.ChannelTagMapping;
+import com.company.dao.ChannelTagMappingDao;
 import com.company.util.ResultSetToJson;
 
 import java.sql.*;
 
-public class TagInfoDaoImpl implements TagInfoDao {
-
+public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
     private static final String URL = "jdbc:mysql://localhost:3306/training?serverTimezone=Asia/Taipei&characterEncoding=utf-8&useUnicode=true";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "abc123";
-
     @Override
-    public void add(TagInfo tagInfo) {
+    public void add(ChannelTagMapping channelTagMapping) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "INSERT INTO tag_info(tag_id, tag_name, type) " +
-                    "VALUES (" + tagInfo.getTagId() + ",'" + tagInfo.getTagName() + "'," + tagInfo.getType() + ")";
+            String insertSQL = "INSERT INTO channel_tag_mapping(s_area_id, tag_id) " +
+                    "VALUES ('" + channelTagMapping.getSourceAreaId() + "'," + channelTagMapping.getTagId() +")";
             int rowsAffected = statement.executeUpdate(insertSQL);
 
         } catch (SQLException throwables) {
@@ -26,10 +24,10 @@ public class TagInfoDaoImpl implements TagInfoDao {
     }
 
     @Override
-    public boolean delete(int tagId) {
+    public boolean delete(String sourceAreaId, int tagId) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "DELETE FROM tag_info WHERE tag_id =" +tagId;
+            String insertSQL = "DELETE FROM channel_tag_mapping WHERE s_area_id = '"+ sourceAreaId + "'AND tag_id =" + tagId + ")";
             int rowsAffected = statement.executeUpdate(insertSQL);
             return true;
 
@@ -40,26 +38,25 @@ public class TagInfoDaoImpl implements TagInfoDao {
     }
 
     @Override
-    public boolean update(int tagId, TagInfo tagInfo) {
+    public Object findBySourceAreaId(String sourceAreaId) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "UPDATE tag_info SET tag_name='" + tagInfo.getTagName() + "',type=" + tagInfo.getType() +
-                    "WHERE tag_id=" + tagId;
-            int rowsAffected = statement.executeUpdate(insertSQL);
-            return true;
+            String insertSQL = "SELECT channel_tag_mapping WHERE s_area_id ='" + sourceAreaId + "'";
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonArray(rs);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override
     public Object findByTagId(int tagId) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "SELECT tag_info WHERE tag_id=" + tagId;
-            ResultSet rs =  statement.executeQuery(insertSQL);
+            String insertSQL = "SELECT channel_tag_mapping WHERE tag_id =" + tagId;
+            ResultSet rs = statement.executeQuery(insertSQL);
             return ResultSetToJson.ResultSetToJsonArray(rs);
 
         } catch (SQLException throwables) {
@@ -72,8 +69,8 @@ public class TagInfoDaoImpl implements TagInfoDao {
     public Object findAll() {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "SELECT * FROM tag_info";
-            ResultSet rs =  statement.executeQuery(insertSQL);
+            String insertSQL = "SELECT * FROM channel_tag_mapping";
+            ResultSet rs = statement.executeQuery(insertSQL);
             return ResultSetToJson.ResultSetToJsonArray(rs);
 
         } catch (SQLException throwables) {

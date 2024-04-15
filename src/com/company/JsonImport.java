@@ -1,10 +1,8 @@
 package com.company;
 
 
-import com.company.bean.ChannelInfo;
-import com.company.bean.TagInfo;
-import com.company.daoimpl.ChannelInfoDaoImpl;
-import com.company.daoimpl.TagInfoDaoImpl;
+import com.company.bean.*;
+import com.company.daoimpl.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,13 +22,16 @@ public class JsonImport {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        // 使用 Gson 進行 JSON 解析
         Gson gson = new Gson();
+        // 指定 JSON 資料型態為 Map<String, List<ChannelTagMapping>>
         Type mapType = new TypeToken<Map<String, List<ChannelInfo>>>() {
         }.getType();
         Map<String, List<ChannelInfo>> jsonMap = gson.fromJson(reader, mapType);
 
+        // 從解析後的資料中取得頻道標籤對應的清單
         List<ChannelInfo> channelInfoList = jsonMap.get("channel_info");
-
+        // 建立 ChannelTagMappingDaoImpl 物件並將解析的資料加入資料庫
         ChannelInfoDaoImpl channelInfoDao = new ChannelInfoDaoImpl();
         for (ChannelInfo channelInfo : channelInfoList) {
             channelInfoDao.add(channelInfo);
@@ -47,14 +48,47 @@ public class JsonImport {
 
     public void importChannelTagMapping() {
 
+        FileReader reader = null;
+        try {
+            reader = new FileReader("C:\\CRUD\\src\\com\\company\\json\\channel_tag_mapping.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        Type mapType = new TypeToken<Map<String, List<ChannelTagMapping>>>() {
+        }.getType();
+        Map<String, List<ChannelTagMapping>> jsonMap = gson.fromJson(reader, mapType);
+
+        List<ChannelTagMapping> channelTagMappingList = jsonMap.get("channel_tag_mapping");
+
+        ChannelTagMappingDaoImpl channelTagMappingDao = new ChannelTagMappingDaoImpl();
+        for (ChannelTagMapping channelTagMapping : channelTagMappingList) {
+            channelTagMappingDao.add(channelTagMapping);
+        }
     }
 
     public void importPType2Info() {
+        FileReader reader = null;
+        try {
+            reader = new FileReader("C:\\CRUD\\src\\com\\company\\json\\p_type_2_info.json");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Gson gson = new Gson();
+        Type mapType = new TypeToken<Map<String, List<PType2Info>>>() {
+        }.getType();
+        Map<String, List<PType2Info>> jsonMap = gson.fromJson(reader, mapType);
 
+        List<PType2Info> pType2InfoList = jsonMap.get("p_type_2_info");
+
+        PType2InfoDaoImpl pType2InfoDao = new PType2InfoDaoImpl();
+        for (PType2Info pType2Info : pType2InfoList) {
+            pType2InfoDao.add(pType2Info);
+        }
     }
 
     public void importTagInfo() {
-        // 讀取 JSON 文件
+
         FileReader reader = null;
         try {
             reader = new FileReader("C:\\CRUD\\src\\com\\company\\json\\tag_info.json");
@@ -66,10 +100,10 @@ public class JsonImport {
         }.getType();
         Map<String, List<TagInfo>> jsonMap = gson.fromJson(reader, mapType);
 
-        List<TagInfo> channelInfoList = jsonMap.get("tag_info");
+        List<TagInfo> tagInfoList = jsonMap.get("tag_info");
 
         TagInfoDaoImpl tagInfoDao = new TagInfoDaoImpl();
-        for (TagInfo tagInfo : channelInfoList) {
+        for (TagInfo tagInfo : tagInfoList) {
             tagInfoDao.add(tagInfo);
         }
     }

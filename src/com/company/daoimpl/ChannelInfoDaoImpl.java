@@ -2,11 +2,9 @@ package com.company.daoimpl;
 
 import com.company.bean.ChannelInfo;
 import com.company.dao.ChannelInfoDao;
+import com.company.util.ResultSetToJson;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
@@ -31,8 +29,7 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     public boolean delete(String sourceAreaId) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "DELETE FROM channel_info(source_area_id) " +
-                    "VALUES ('" + sourceAreaId + "')";
+            String insertSQL = "DELETE FROM channel_info WHERE source_area_id = '" + sourceAreaId + "'";
             int rowsAffected = statement.executeUpdate(insertSQL);
             return true;
 
@@ -47,7 +44,7 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
             String insertSQL = "UPDATE channel_info SET source_id='" + channelInfo.getSourceId() + "',is_used=" + channelInfo.getIsUsed() + ",p_type_2='" + channelInfo.getPType2() +
-                    "' WHERE source_area_id='" + sourceAreaId + "')";
+                    "' WHERE source_area_id='" + sourceAreaId + "'";
             int rowsAffected = statement.executeUpdate(insertSQL);
             return true;
 
@@ -61,8 +58,9 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     public Object findBySourceAreaId(String sourceAreaId) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "SELECT channel_info WHERE source_area_id='" + sourceAreaId + "')";
-            return statement.executeQuery(insertSQL);
+            String insertSQL = "SELECT channel_info WHERE source_area_id='" + sourceAreaId +"'";
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonArray(rs);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -75,7 +73,8 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_info";
-            return statement.executeQuery(insertSQL);
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonArray(rs);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
