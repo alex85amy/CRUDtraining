@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/training";
+    private static final String URL = "jdbc:mysql://localhost:3306/training?serverTimezone=Asia/Taipei&characterEncoding=utf-8&useUnicode=true";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "abc123";
 
@@ -19,7 +19,7 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
             String insertSQL = "INSERT INTO channel_info(source_id, source_area_id, is_used, p_type_2) " +
-                    "VALUES (" + channelInfo.getSourceId() + "," + channelInfo.getSourceAreaId() + "," + channelInfo.getIsUsed() + "," + channelInfo.getPType2() + ")";
+                    "VALUES ('" + channelInfo.getSourceId() + "','" + channelInfo.getSourceAreaId() + "'," + channelInfo.getIsUsed() + ",'" + channelInfo.getPType2() + "')";
             int rowsAffected = statement.executeUpdate(insertSQL);
 
         } catch (SQLException throwables) {
@@ -32,7 +32,7 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
             String insertSQL = "DELETE FROM channel_info(source_area_id) " +
-                    "VALUES (" + sourceAreaId + ")";
+                    "VALUES ('" + sourceAreaId + "')";
             int rowsAffected = statement.executeUpdate(insertSQL);
             return true;
 
@@ -46,8 +46,8 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     public boolean update(String sourceAreaId, ChannelInfo channelInfo) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "UPDATE channel_info SET source_id=" + channelInfo.getSourceId() + ",is_used=" + channelInfo.getIsUsed() + ",p_type_2=" + channelInfo.getPType2() +
-                    "WHERE source_area_id=" + sourceAreaId + ")";
+            String insertSQL = "UPDATE channel_info SET source_id='" + channelInfo.getSourceId() + "',is_used=" + channelInfo.getIsUsed() + ",p_type_2='" + channelInfo.getPType2() +
+                    "' WHERE source_area_id='" + sourceAreaId + "')";
             int rowsAffected = statement.executeUpdate(insertSQL);
             return true;
 
@@ -58,16 +58,16 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     }
 
     @Override
-    public Object findBysourceAreaId(String sourceAreaId) {
+    public Object findBySourceAreaId(String sourceAreaId) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "SELECT channel_info WHERE source_area_id=" + sourceAreaId + ")";
+            String insertSQL = "SELECT channel_info WHERE source_area_id='" + sourceAreaId + "')";
             return statement.executeQuery(insertSQL);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return false;
+        return null;
     }
 
 }

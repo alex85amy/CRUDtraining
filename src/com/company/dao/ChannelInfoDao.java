@@ -10,7 +10,7 @@ public interface ChannelInfoDao {
 
     public boolean update(String sourceAreaId, ChannelInfo channelInfo);
 
-    public Object findBysourceAreaId(String sourceAreaId);
+    public Object findBySourceAreaId(String sourceAreaId);
 
     public Object findAll();
 }

@@ -2,7 +2,6 @@ package com.company.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-
 public class ChannelInfo {
     @SerializedName("source_id")
     String sourceId;
