@@ -1,4 +1,4 @@
-package com.company;
+package com.company.util;
 
 
 import com.company.bean.*;
@@ -70,7 +70,7 @@ public class JsonImport {
     public void importPType2Info() {
         FileReader reader = null;
         try {
-            reader = new FileReader("C:\\CRUD\\src\\com\\company\\json\\p_type_2_info.json");
+            reader = new FileReader("C:\\CRUD\\src\\com\\company\\json\\p_type_2_list.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

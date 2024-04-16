@@ -1,12 +1,13 @@
 package com.company.test;
 
-import com.company.JsonImport;
 import com.company.daoimpl.TagInfoDaoImpl;
+import com.company.util.JsonExport;
+import com.company.util.JsonImport;
 
 public class Test {
     public static void main(String[] args) {
-        TagInfoDaoImpl tagInfoDao = new TagInfoDaoImpl();
-        System.out.println(tagInfoDao.findAll());
+        JsonExport jsonExport = new JsonExport();
+        jsonExport.exportChannelInfo();
     }
 }
 
