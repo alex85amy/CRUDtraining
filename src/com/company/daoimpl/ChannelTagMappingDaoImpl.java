@@ -43,7 +43,7 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT channel_tag_mapping WHERE s_area_id ='" + sourceAreaId + "'";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonArray(rs);
+            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_tag_mapping");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -57,7 +57,7 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT channel_tag_mapping WHERE tag_id =" + tagId;
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonArray(rs);
+            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_tag_mapping");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -71,7 +71,7 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonArray(rs);
+            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_tag_mapping");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

@@ -60,7 +60,7 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT channel_info WHERE source_area_id='" + sourceAreaId +"'";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonArray(rs);
+            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -74,7 +74,7 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_info";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonArray(rs);
+            return ResultSetToJson.ResultSetToJsonObject(rs, "channel_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

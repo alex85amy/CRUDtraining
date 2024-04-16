@@ -60,7 +60,7 @@ public class TagInfoDaoImpl implements TagInfoDao {
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT tag_info WHERE tag_id=" + tagId;
             ResultSet rs =  statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonArray(rs);
+            return ResultSetToJson.ResultSetToJsonObject(rs,"tag_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -74,7 +74,7 @@ public class TagInfoDaoImpl implements TagInfoDao {
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM tag_info";
             ResultSet rs =  statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonArray(rs);
+            return ResultSetToJson.ResultSetToJsonObject(rs,"tag_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

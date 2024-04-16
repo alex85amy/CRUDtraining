@@ -18,7 +18,7 @@ public class JsonImport {
         // 讀取 JSON 文件
         FileReader reader = null;
         try {
-            reader = new FileReader("C:\\CRUD\\src\\com\\company\\json\\channel_info.json");
+            reader = new FileReader("channel_info.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -50,7 +50,7 @@ public class JsonImport {
 
         FileReader reader = null;
         try {
-            reader = new FileReader("C:\\CRUD\\src\\com\\company\\json\\channel_tag_mapping.json");
+            reader = new FileReader("channel_tag_mapping.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -70,7 +70,7 @@ public class JsonImport {
     public void importPType2Info() {
         FileReader reader = null;
         try {
-            reader = new FileReader("C:\\CRUD\\src\\com\\company\\json\\p_type_2_list.json");
+            reader = new FileReader("p_type_2_list.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public class JsonImport {
 
         FileReader reader = null;
         try {
-            reader = new FileReader("C:\\CRUD\\src\\com\\company\\json\\tag_info.json");
+            reader = new FileReader("tag_info.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

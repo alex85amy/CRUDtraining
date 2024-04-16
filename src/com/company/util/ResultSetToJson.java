@@ -29,7 +29,7 @@ public class ResultSetToJson {
         return ja;
     }
 
-    public static final JsonObject ResultSetToJsonObject(ResultSet rs) {
+    public static final JsonObject ResultSetToJsonObject(ResultSet rs, String name) {
         JsonObject element = null;
         JsonArray ja = new JsonArray();
         JsonObject jo = new JsonObject();
@@ -46,14 +46,14 @@ public class ResultSetToJson {
                 }
                 ja.add(element);
             }
-            jo.add("result", ja);
+            jo.add(name, ja);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return jo;
     }
 
-    public static final String ResultSetToJsonString(ResultSet rs) {
-        return ResultSetToJsonObject(rs).toString();
-    }
+//    public static final String ResultSetToJsonString(ResultSet rs) {
+//        return ResultSetToJsonObject(rs).toString();
+//    }
 }

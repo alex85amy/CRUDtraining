@@ -58,7 +58,7 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT p_type_2_info WHERE category='" + category + "'";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonArray(rs);
+            return ResultSetToJson.ResultSetToJsonObject(rs,"p_type_2_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -72,7 +72,7 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM p_type_2_info";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonArray(rs);
+            return ResultSetToJson.ResultSetToJsonObject(rs,"p_type_2_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
