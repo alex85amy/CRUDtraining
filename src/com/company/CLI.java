@@ -26,10 +26,10 @@ public class CLI {
             case "--import":
                 switch (filePath) {
                     case "channel_info.json":
-                        jsonImport.importChannelInfo();
+                        jsonImport.importChannelInfoBatch();
                         break;
                     case "channel_tag_mapping.json":
-                        jsonImport.importChannelTagMapping();
+                        jsonImport.importChannelTagMappingBatch();
                         break;
                     case "p_type_2_list.json":
                         jsonImport.importPType2Info();

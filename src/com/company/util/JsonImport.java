@@ -100,7 +100,7 @@ public class JsonImport {
         try {
             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO channel_info(s_area_id, tag_id) VALUES (?, ?) ");
+                    "INSERT INTO channel_tag_mapping(s_area_id, tag_id) VALUES (?, ?) ");
             // 讀取 JSON 文件
             FileReader reader = null;
             try {
@@ -167,10 +167,6 @@ public class JsonImport {
 
         PType2InfoDaoImpl pType2InfoDao = new PType2InfoDaoImpl();
         for (PType2Info pType2Info : pType2InfoList) {
-            System.out.println("p_type_2_info : ");
-            System.out.println("category : " + pType2Info.getCategory());
-            System.out.println("name : " + pType2Info.getName());
-            System.out.println("============================================");
             pType2InfoDao.add(pType2Info);
         }
     }
