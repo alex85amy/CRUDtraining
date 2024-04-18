@@ -29,7 +29,7 @@ public class TagInfoDaoImpl implements TagInfoDao {
     public boolean delete(int tagId) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "DELETE FROM tag_info WHERE tag_id =" +tagId;
+            String insertSQL = "DELETE FROM tag_info WHERE tag_id =" + tagId;
             int rowsAffected = statement.executeUpdate(insertSQL);
             return true;
 
@@ -58,9 +58,9 @@ public class TagInfoDaoImpl implements TagInfoDao {
     public Object findByTagId(int tagId) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "SELECT tag_info WHERE tag_id=" + tagId;
-            ResultSet rs =  statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs,"tag_info");
+            String insertSQL = "SELECT * FROM tag_info WHERE tag_id=" + tagId;
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonObject(rs, "tag_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -73,8 +73,8 @@ public class TagInfoDaoImpl implements TagInfoDao {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM tag_info";
-            ResultSet rs =  statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs,"tag_info");
+            ResultSet rs = statement.executeQuery(insertSQL);
+            return ResultSetToJson.ResultSetToJsonObject(rs, "tag_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

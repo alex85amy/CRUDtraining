@@ -26,7 +26,7 @@ public class JsonImport {
         try {
             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "INSERT INTO channel_info(source_id, source_area_id, is_used, p_type_2) VALUES (?, ?, ?, ?) ");
+                    "INSERT INTO channel_info(source_id, source_area_id, is_used, p_type_2) VALUES (?, ?, ?, ?)");
             // 讀取 JSON 文件
             FileReader reader = null;
             try {
@@ -43,14 +43,24 @@ public class JsonImport {
 
             // 從解析後的資料中取得頻道標籤對應的清單
             List<ChannelInfo> channelInfoList = jsonMap.get("channel_info");
+
+            int batchSize = 10000;//批次數量
+            int count = 0; // 計數器，用於計算添加到批次的記錄數量
+
             for (ChannelInfo channelInfo : channelInfoList) {
                 preparedStatement.setString(1, channelInfo.getSourceId());
                 preparedStatement.setString(2, channelInfo.getSourceAreaId());
                 preparedStatement.setInt(3, channelInfo.getIsUsed());
                 preparedStatement.setString(4, channelInfo.getPType2());
                 preparedStatement.addBatch();// 將操作加入批次
+                count++;
+
+                if (count % batchSize == 0) {
+                    preparedStatement.executeBatch();// 執行批次操作
+                    count = 0; // 重置計數器
+                }
             }
-            preparedStatement.executeBatch();// 執行批次操作
+            preparedStatement.executeBatch();// 執行最後批次操作
 
             preparedStatement.close();
             connection.close();
@@ -96,7 +106,7 @@ public class JsonImport {
         }
     }
 
-    public void importChannelTagMappingBatch(){
+    public void importChannelTagMappingBatch() {
         try {
             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             PreparedStatement preparedStatement = connection.prepareStatement(
@@ -115,12 +125,20 @@ public class JsonImport {
 
             List<ChannelTagMapping> channelTagMappingList = jsonMap.get("channel_tag_mapping");
 
+            int batchSize = 10000;//批次數量
+            int count = 0; // 計數器，用於計算添加到批次的記錄數量
             for (ChannelTagMapping channelTagMapping : channelTagMappingList) {
                 preparedStatement.setString(1, channelTagMapping.getSourceAreaId());
                 preparedStatement.setInt(2, channelTagMapping.getTagId());
-               preparedStatement.addBatch();// 將操作加入批次
+                preparedStatement.addBatch();// 將操作加入批次
+                count++;
+
+                if (count % batchSize == 0) {
+                    preparedStatement.executeBatch();// 執行批次操作
+                    count = 0; // 重置計數器
+                }
             }
-            preparedStatement.executeBatch();// 執行批次操作
+            preparedStatement.executeBatch();// 執行最後批次操作
 
             preparedStatement.close();
             connection.close();

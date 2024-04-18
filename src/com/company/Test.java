@@ -6,7 +6,7 @@ public class Test {
     public static void main(String[] args) {
 //        JsonExport jsonExport = new JsonExport();
         JsonImport jsonImport = new JsonImport();
-        jsonImport.importChannelTagMappingBatch();
+        jsonImport.importChannelInfoBatch();
     }
 }
 

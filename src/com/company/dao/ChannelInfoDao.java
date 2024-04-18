@@ -6,11 +6,11 @@ public interface ChannelInfoDao {
 
     public void add(ChannelInfo channelInfo);
 
-    public boolean delete(String sourceAreaId);
+    public boolean delete(int id);
 
-    public boolean update(String sourceAreaId, ChannelInfo channelInfo);
+    public boolean update(int id, ChannelInfo channelInfo);
 
-    public Object findBySourceAreaId(String sourceAreaId);
+    public Object findById(int id);
 
     public Object findAll();
 }

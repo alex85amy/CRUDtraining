@@ -24,10 +24,10 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
     }
 
     @Override
-    public boolean delete(String category) {
+    public boolean delete(int id) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "DELETE FROM p_type_2_info WHERE category = '" + category + "'";
+            String insertSQL = "DELETE FROM p_type_2_info WHERE auto_id =" + id ;
             int rowsAffected = statement.executeUpdate(insertSQL);
             return true;
 
@@ -38,11 +38,11 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
     }
 
     @Override
-    public boolean update(String category, PType2Info pType2Info) {
+    public boolean update(int id, PType2Info pType2Info) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "UPDATE p_type_2_info SET name='" + pType2Info.getName() +
-                    "' WHERE category='" + category + "'";
+            String insertSQL = "UPDATE p_type_2_info SET category='"+pType2Info.getCategory()+"',name='" + pType2Info.getName() +
+                    "' WHERE auto_id=" + id;
             int rowsAffected = statement.executeUpdate(insertSQL);
             return true;
 
@@ -53,10 +53,10 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
     }
 
     @Override
-    public Object findByCategory(String category) {
+    public Object findById(int id) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "SELECT p_type_2_info WHERE category='" + category + "'";
+            String insertSQL = "SELECT * FROM p_type_2_info WHERE auto_id=" + id;
             ResultSet rs = statement.executeQuery(insertSQL);
             return ResultSetToJson.ResultSetToJsonObject(rs,"p_type_2_info");
 

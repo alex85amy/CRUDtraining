@@ -6,7 +6,11 @@ public interface ChannelTagMappingDao {
 
     public void add(ChannelTagMapping channelTagMapping);
 
-    public boolean delete(String sourceAreaId, int tagId);
+    public boolean delete(int id);
+
+    public boolean update(int id, ChannelTagMapping channelTagMapping);
+
+    public Object findById(int id);
 
     public Object findBySourceAreaId(String sourceAreaId);
 

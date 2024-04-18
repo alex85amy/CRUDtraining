@@ -26,10 +26,10 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     }
 
     @Override
-    public boolean delete(String sourceAreaId) {
+    public boolean delete(int id) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "DELETE FROM channel_info WHERE source_area_id = '" + sourceAreaId + "'";
+            String insertSQL = "DELETE FROM channel_info WHERE auto_id = " + id;
             int rowsAffected = statement.executeUpdate(insertSQL);
             return true;
 
@@ -40,11 +40,11 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     }
 
     @Override
-    public boolean update(String sourceAreaId, ChannelInfo channelInfo) {
+    public boolean update(int id, ChannelInfo channelInfo) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "UPDATE channel_info SET source_id='" + channelInfo.getSourceId() + "',is_used=" + channelInfo.getIsUsed() + ",p_type_2='" + channelInfo.getPType2() +
-                    "' WHERE source_area_id='" + sourceAreaId + "'";
+            String insertSQL = "UPDATE channel_info SET source_id='" + channelInfo.getSourceId() + "',source_area_id='" + channelInfo.getSourceAreaId() + "',is_used=" + channelInfo.getIsUsed() + ",p_type_2='" + channelInfo.getPType2() +
+                    "' WHERE auto_id=" + id;
             int rowsAffected = statement.executeUpdate(insertSQL);
             return true;
 
@@ -55,10 +55,10 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
     }
 
     @Override
-    public Object findBySourceAreaId(String sourceAreaId) {
+    public Object findById(int id) {
         try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement statement = conn.createStatement()) {
-            String insertSQL = "SELECT channel_info WHERE source_area_id='" + sourceAreaId +"'";
+            String insertSQL = "SELECT * FROM channel_info WHERE auto_id=" + id;
             ResultSet rs = statement.executeQuery(insertSQL);
             return ResultSetToJson.ResultSetToJsonObject(rs, "channel_info");
 
