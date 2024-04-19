@@ -15,6 +15,9 @@ public class ChannelInfo {
     @SerializedName("p_type_2")
     String pType2;
 
+    public ChannelInfo() {
+    }
+
     public ChannelInfo(String sourceId, String sourceAreaId, int isUsed, String pType2) {
     }
 

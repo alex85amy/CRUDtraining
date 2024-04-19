@@ -13,6 +13,9 @@ public class TagInfo {
     @SerializedName("type")
     int type;
 
+    public TagInfo() {
+    }
+
     public TagInfo(int tagId, String tagName, int type) {
         this.tagId = tagId;
         this.tagName = tagName;

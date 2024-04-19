@@ -9,6 +9,9 @@ public class PType2Info {
     @SerializedName("name")
     String name;
 
+    public PType2Info() {
+    }
+
     public PType2Info(String category, String name) {
         this.category = category;
         this.name = name;

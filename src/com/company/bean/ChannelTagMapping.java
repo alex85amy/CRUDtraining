@@ -10,6 +10,9 @@ public class ChannelTagMapping {
     @SerializedName("tag_id")
     int tagId;
 
+    public ChannelTagMapping() {
+    }
+
     public ChannelTagMapping(String sourceAreaId, int tagId) {
         this.sourceAreaId = sourceAreaId;
         this.tagId = tagId;
