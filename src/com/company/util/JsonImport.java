@@ -24,11 +24,11 @@ import java.util.Map;
 
 public class JsonImport {
 
-    public void importChannelInfoBatch() {
+    public void importChannelInfoBatch(String fileName) {
         // 讀取 JSON 文件
         FileReader reader = null;
         try {
-            reader = new FileReader("channel_info.json");
+            reader = new FileReader(fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -43,14 +43,15 @@ public class JsonImport {
         List<ChannelInfo> channelInfoList = jsonMap.get("channel_info");
         ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl();
         channelInfoDao.addBatch(channelInfoList);
+        System.out.println("Import sucess");
 
     }
 
-    public void importChannelTagMappingBatch() {
+    public void importChannelTagMappingBatch(String fileName) {
         // 讀取 JSON 文件
         FileReader reader = null;
         try {
-            reader = new FileReader("channel_tag_mapping.json");
+            reader = new FileReader(fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -62,13 +63,14 @@ public class JsonImport {
         List<ChannelTagMapping> channelTagMappingList = jsonMap.get("channel_tag_mapping");
         ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl();
         channelTagMappingDao.addBatch(channelTagMappingList);
+        System.out.println("Import sucess");
 
     }
 
-    public void importPType2Info() {
+    public void importPType2Info(String fileName) {
         FileReader reader = null;
         try {
-            reader = new FileReader("p_type_2_list.json");
+            reader = new FileReader(fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -83,13 +85,15 @@ public class JsonImport {
         for (PType2Info pType2Info : pType2InfoList) {
             pType2InfoDao.add(pType2Info);
         }
+        System.out.println("Import sucess");
+
     }
 
-    public void importTagInfo() {
+    public void importTagInfo(String fileName) {
 
         FileReader reader = null;
         try {
-            reader = new FileReader("tag_info.json");
+            reader = new FileReader(fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -104,5 +108,7 @@ public class JsonImport {
         for (TagInfo tagInfo : tagInfoList) {
             tagInfoDao.add(tagInfo);
         }
+        System.out.println("Import sucess");
+
     }
 }

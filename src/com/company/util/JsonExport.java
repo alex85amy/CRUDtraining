@@ -1,5 +1,9 @@
 package com.company.util;
 
+import com.company.dao.ChannelInfoDao;
+import com.company.dao.ChannelTagMappingDao;
+import com.company.dao.PType2InfoDao;
+import com.company.dao.TagInfoDao;
 import com.company.daoimpl.ChannelInfoDaoImpl;
 import com.company.daoimpl.ChannelTagMappingDaoImpl;
 import com.company.daoimpl.PType2InfoDaoImpl;
@@ -11,15 +15,14 @@ import java.io.IOException;
 
 public class JsonExport {
 
-    public void exportChannelInfo() {
+    public void exportChannelInfo(String fileName) {
 
-        ChannelInfoDaoImpl channelInfoDao = new ChannelInfoDaoImpl();
+        ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl();
         JsonObject jsonObject = (JsonObject) channelInfoDao.findAll();
-        String exportFilePath = "channel_info.json";
 
-        try (FileWriter fileWriter = new FileWriter(exportFilePath)) {
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
             fileWriter.write(jsonObject.toString()); // 使用縮排格式進行格式化
-            System.out.println("JSON array 已成功寫入到檔案: " + exportFilePath);
+            System.out.println("JSON array 已成功寫入到檔案: " + fileName);
         } catch (IOException e) {
             System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
@@ -27,30 +30,28 @@ public class JsonExport {
 
     }
 
-    public void exportChannelTagMapping() {
+    public void exportChannelTagMapping(String fileName) {
 
-        ChannelTagMappingDaoImpl channelTagMappingDao = new ChannelTagMappingDaoImpl();
+        ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl();
         JsonObject jsonObject = (JsonObject) channelTagMappingDao.findAll();
-        String exportFilePath = "channel_tag_mapping.json";
 
-        try (FileWriter fileWriter = new FileWriter(exportFilePath)) {
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
             fileWriter.write(jsonObject.toString()); // 使用縮排格式進行格式化
-            System.out.println("JSON array 已成功寫入到檔案: " + exportFilePath);
+            System.out.println("JSON array 已成功寫入到檔案: " + fileName);
         } catch (IOException e) {
             System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public void exportPType2Info() {
+    public void exportPType2Info(String fileName) {
 
-        PType2InfoDaoImpl pType2InfoDao = new PType2InfoDaoImpl();
+        PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl();
         JsonObject jsonObject = (JsonObject) pType2InfoDao.findAll();
-        String exportFilePath = "p_type_2_list.json";
 
-        try (FileWriter fileWriter = new FileWriter(exportFilePath)) {
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
             fileWriter.write(jsonObject.toString()); // 使用縮排格式進行格式化
-            System.out.println("JSON array 已成功寫入到檔案: " + exportFilePath);
+            System.out.println("JSON array 已成功寫入到檔案: " + fileName);
         } catch (IOException e) {
             System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
@@ -58,15 +59,14 @@ public class JsonExport {
 
     }
 
-    public void exportTagInfo() {
+    public void exportTagInfo(String fileName) {
 
-        TagInfoDaoImpl tagInfoDao = new TagInfoDaoImpl();
+        TagInfoDao tagInfoDao = new TagInfoDaoImpl();
         JsonObject jsonObject = (JsonObject) tagInfoDao.findAll();
-        String exportFilePath = "tag_info.json";
 
-        try (FileWriter fileWriter = new FileWriter(exportFilePath)) {
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
             fileWriter.write(jsonObject.toString()); // 使用縮排格式進行格式化
-            System.out.println("JSON array 已成功寫入到檔案: " + exportFilePath);
+            System.out.println("JSON array 已成功寫入到檔案: " + fileName);
         } catch (IOException e) {
             System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
