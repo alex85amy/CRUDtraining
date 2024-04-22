@@ -2,15 +2,19 @@ package com.company.dao;
 
 import com.company.bean.ChannelInfo;
 
+import java.util.List;
+
 public interface ChannelInfoDao {
 
-    public void add(ChannelInfo channelInfo);
+    void add(ChannelInfo channelInfo);
 
-    public boolean delete(int id);
+    boolean delete(int id);
 
-    public boolean update(int id, ChannelInfo channelInfo);
+    boolean update(int id, ChannelInfo channelInfo);
 
-    public Object findById(int id);
+    Object findById(int id);
 
-    public Object findAll();
+    Object findAll();
+
+    void addBatch(List<ChannelInfo> channelInfoList);
 }

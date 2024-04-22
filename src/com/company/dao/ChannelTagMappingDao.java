@@ -2,19 +2,23 @@ package com.company.dao;
 
 import com.company.bean.ChannelTagMapping;
 
+import java.util.List;
+
 public interface ChannelTagMappingDao {
 
-    public void add(ChannelTagMapping channelTagMapping);
+    void add(ChannelTagMapping channelTagMapping);
 
-    public boolean delete(int id);
+    boolean delete(int id);
 
-    public boolean update(int id, ChannelTagMapping channelTagMapping);
+    boolean update(int id, ChannelTagMapping channelTagMapping);
 
-    public Object findById(int id);
+    Object findById(int id);
 
-    public Object findBySourceAreaId(String sourceAreaId);
+    Object findBySourceAreaId(String sourceAreaId);
 
-    public Object findByTagId(int tagId);
+    Object findByTagId(int tagId);
 
-    public Object findAll();
+    Object findAll();
+
+    void addBatch(List<ChannelTagMapping> channelTagMappingList);
 }

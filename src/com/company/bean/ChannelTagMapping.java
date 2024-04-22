@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class ChannelTagMapping {
     @SerializedName("s_area_id")
-    String sourceAreaId;
+    private String sourceAreaId;
 
     @SerializedName("tag_id")
-    int tagId;
+    private int tagId;
 
     public ChannelTagMapping() {
     }

@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class PType2Info {
     @SerializedName("category")
-    String category;
+    private String category;
 
     @SerializedName("name")
-    String name;
+    private String name;
 
     public PType2Info() {
     }

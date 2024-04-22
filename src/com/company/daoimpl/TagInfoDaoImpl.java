@@ -2,19 +2,21 @@ package com.company.daoimpl;
 
 import com.company.bean.TagInfo;
 import com.company.dao.TagInfoDao;
+import com.company.util.JDBC;
 import com.company.util.ResultSetToJson;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class TagInfoDaoImpl implements TagInfoDao {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/training?serverTimezone=Asia/Taipei&characterEncoding=utf-8&useUnicode=true";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "abc123";
+    JDBC jdbc = new JDBC();
 
     @Override
     public void add(TagInfo tagInfo) {
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "INSERT INTO tag_info(tag_id, tag_name, type) " +
                     "VALUES (" + tagInfo.getTagId() + ",'" + tagInfo.getTagName() + "'," + tagInfo.getType() + ")";
@@ -27,7 +29,7 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
     @Override
     public boolean delete(int tagId) {
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "DELETE FROM tag_info WHERE tag_id =" + tagId;
             int rowsAffected = statement.executeUpdate(insertSQL);
@@ -41,7 +43,7 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
     @Override
     public boolean update(int tagId, TagInfo tagInfo) {
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "UPDATE tag_info SET tag_name='" + tagInfo.getTagName() + "',type=" + tagInfo.getType() +
                     "WHERE tag_id=" + tagId;
@@ -56,7 +58,7 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
     @Override
     public Object findByTagId(int tagId) {
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM tag_info WHERE tag_id=" + tagId;
             ResultSet rs = statement.executeQuery(insertSQL);
@@ -70,7 +72,7 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
     @Override
     public Object findAll() {
-        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM tag_info";
             ResultSet rs = statement.executeQuery(insertSQL);

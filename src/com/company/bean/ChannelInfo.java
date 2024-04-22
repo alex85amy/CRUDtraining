@@ -4,16 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class ChannelInfo {
     @SerializedName("source_id")
-    String sourceId;
+    private String sourceId;
 
     @SerializedName("source_area_id")
-    String sourceAreaId;
+    private String sourceAreaId;
 
     @SerializedName("is_used")
-    int isUsed;
+    private int isUsed;
 
     @SerializedName("p_type_2")
-    String pType2;
+    private String pType2;
 
     public ChannelInfo() {
     }

@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class TagInfo {
     @SerializedName("tag_id")
-    int tagId;
+    private int tagId;
 
     @SerializedName("tag_name")
-    String tagName;
+    private String tagName;
 
     @SerializedName("type")
-    int type;
+    private int type;
 
     public TagInfo() {
     }
