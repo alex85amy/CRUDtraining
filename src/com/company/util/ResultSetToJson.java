@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
 public class ResultSetToJson {
+
     public static final JsonArray ResultSetToJsonArray(ResultSet rs) {
         JsonObject element = null;
         JsonArray ja = new JsonArray();
@@ -52,7 +53,6 @@ public class ResultSetToJson {
         }
         return jo;
     }
-
 
     public static final String ResultSetToJsonString(ResultSet rs, String name) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

@@ -2,6 +2,8 @@ package com.company;
 
 import com.company.util.JsonExport;
 import com.company.util.JsonImport;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Scanner;
 
@@ -21,19 +23,25 @@ public class CLI {
         String fileName = parts[1];
         JsonImport jsonImport = new JsonImport();
         JsonExport jsonExport = new JsonExport();
+        Logger logger = LogManager.getLogger();
+
 
         if (command.equals("--import")) {
             if (fileName.contains("channel_info")) {
                 jsonImport.importChannelInfoBatch(fileName);
+                logger.info("import channel_info");
 
             } else if (fileName.contains("channel_tag_mapping")) {
                 jsonImport.importChannelTagMappingBatch(fileName);
+                logger.info("import channel_tag_mapping");
 
             } else if (fileName.contains("p_type_2_list")) {
                 jsonImport.importPType2Info(fileName);
+                logger.info("import p_type_2_list");
 
             } else if (fileName.contains("tag_info")) {
                 jsonImport.importTagInfo(fileName);
+                logger.info("import tag_info");
 
             } else
                 System.out.println("Invalid file name for import.");
@@ -41,15 +49,19 @@ public class CLI {
         } else if (command.equals("--export")) {
             if (fileName.contains("channel_info")) {
                 jsonExport.exportChannelInfo(fileName);
+                logger.info("export channel_info");
 
             } else if (fileName.contains("channel_tag_mapping")) {
                 jsonExport.exportChannelTagMapping(fileName);
+                logger.info("export channel_tag_mapping");
 
             } else if (fileName.contains("p_type_2_list")) {
                 jsonExport.exportPType2Info(fileName);
+                logger.info("export p_type_2_list");
 
             } else if (fileName.contains("tag_info")) {
                 jsonExport.exportTagInfo(fileName);
+                logger.info("export tag_info");
 
             } else
                 System.out.println("Invalid file name for export.");

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <status>info</status>
+    <name>PropertiesConfig</name>
+    <appenders>
+        <Console name="STDOUT" type="Console">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
+        </Console>
+
+        <File name="LOGFILE" fileName="C:/logs/crudlog.log" append="false" type="File">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
+        </File>
+    </appenders>
+
+    <loggers>
+        <root level="info">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="LOGFILE"/>
+        </root>
+    </loggers>
+</configuration>
