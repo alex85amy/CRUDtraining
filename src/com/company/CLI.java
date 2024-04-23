@@ -9,7 +9,7 @@ public class CLI {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter command ( --import xxx.json/ --export xxx.json) followed by file path:");
+        System.out.println("Enter command ( --import xxx.json/ --export xxx.json) followed by file name:");
 
         String input = scanner.nextLine();
         String[] parts = input.split(" ", 2);
@@ -36,7 +36,7 @@ public class CLI {
                 jsonImport.importTagInfo(fileName);
 
             } else
-                System.out.println("Invalid file path for import.");
+                System.out.println("Invalid file name for import.");
 
         } else if (command.equals("--export")) {
             if (fileName.contains("channel_info")) {
@@ -52,7 +52,7 @@ public class CLI {
                 jsonExport.exportTagInfo(fileName);
 
             } else
-                System.out.println("Invalid file path for export.");
+                System.out.println("Invalid file name for export.");
 
         } else
             System.out.println("Invalid command. Please use --import xxx.json/ --export xxx.json");

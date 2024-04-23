@@ -54,12 +54,12 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
     }
 
     @Override
-    public Object findById(int id) {
+    public String findById(int id) {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM p_type_2_info WHERE auto_id=" + id;
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs,"p_type_2_info");
+            return ResultSetToJson.ResultSetToJsonString(rs,"p_type_2_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -68,12 +68,12 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
     }
 
     @Override
-    public Object findAll() {
+    public String findAll() {
         try (Connection conn = jdbc.getConnection();
              Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM p_type_2_info";
             ResultSet rs = statement.executeQuery(insertSQL);
-            return ResultSetToJson.ResultSetToJsonObject(rs,"p_type_2_info");
+            return ResultSetToJson.ResultSetToJsonString(rs,"p_type_2_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
