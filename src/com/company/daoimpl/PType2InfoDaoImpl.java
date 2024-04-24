@@ -27,6 +27,8 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+
         }
     }
 
@@ -39,8 +41,9 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -53,8 +56,9 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -66,8 +70,9 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -79,8 +84,9 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -106,6 +112,7 @@ public class PType2InfoDaoImpl implements PType2InfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
         }
     }
 }

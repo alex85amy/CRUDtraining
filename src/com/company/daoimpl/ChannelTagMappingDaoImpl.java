@@ -27,6 +27,7 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
         }
     }
 
@@ -39,8 +40,9 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -53,8 +55,9 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -66,8 +69,9 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -79,8 +83,9 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -92,8 +97,9 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -105,8 +111,9 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -132,6 +139,8 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+
         }
     }
 }

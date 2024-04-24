@@ -27,6 +27,7 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
         }
     }
 
@@ -39,8 +40,9 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -53,8 +55,9 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -66,8 +69,9 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -79,8 +83,9 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -107,6 +112,7 @@ public class TagInfoDaoImpl implements TagInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
         }
     }
 }

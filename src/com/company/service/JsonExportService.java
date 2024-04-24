@@ -1,4 +1,4 @@
-package com.company.util;
+package com.company.service;
 
 import com.company.dao.ChannelInfoDao;
 import com.company.dao.ChannelTagMappingDao;
@@ -8,7 +8,10 @@ import com.company.daoimpl.ChannelInfoDaoImpl;
 import com.company.daoimpl.ChannelTagMappingDaoImpl;
 import com.company.daoimpl.PType2InfoDaoImpl;
 import com.company.daoimpl.TagInfoDaoImpl;
+import com.company.util.JDBC;
 import com.google.gson.JsonObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +21,7 @@ public class JsonExportService {
 
     private JDBC jdbc = new JDBC();
     private Connection conn = jdbc.getConnection();
+    private Logger logger = LogManager.getLogger();
 
     public void exportChannelInfo(String fileName) {
 
@@ -30,6 +34,7 @@ public class JsonExportService {
         } catch (IOException e) {
             System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
+            logger.error(e.toString());
         }
 
     }
@@ -45,6 +50,7 @@ public class JsonExportService {
         } catch (IOException e) {
             System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 
@@ -59,6 +65,7 @@ public class JsonExportService {
         } catch (IOException e) {
             System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
+            logger.error(e.toString());
         }
 
     }
@@ -74,6 +81,7 @@ public class JsonExportService {
         } catch (IOException e) {
             System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
+            logger.error(e.toString());
         }
 
     }

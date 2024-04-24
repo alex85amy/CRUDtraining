@@ -1,7 +1,7 @@
 package com.company;
 
-import com.company.util.JsonExportService;
-import com.company.util.JsonImportService;
+import com.company.service.JsonExportService;
+import com.company.service.JsonImportService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

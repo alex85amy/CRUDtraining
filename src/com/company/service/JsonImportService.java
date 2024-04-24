@@ -1,4 +1,4 @@
-package com.company.util;
+package com.company.service;
 
 
 import com.company.bean.ChannelInfo;
@@ -13,8 +13,11 @@ import com.company.daoimpl.ChannelInfoDaoImpl;
 import com.company.daoimpl.ChannelTagMappingDaoImpl;
 import com.company.daoimpl.PType2InfoDaoImpl;
 import com.company.daoimpl.TagInfoDaoImpl;
+import com.company.util.JDBC;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,6 +31,7 @@ public class JsonImportService {
 
     private JDBC jdbc = new JDBC();
     private Connection conn = jdbc.getConnection();
+    private Logger logger = LogManager.getLogger();
 
     public void importChannelInfo(String fileName) {
         // 讀取 JSON 文件
@@ -36,6 +40,7 @@ public class JsonImportService {
             reader = new FileReader(fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            logger.error(e.toString());
         }
         // 使用 Gson 進行 JSON 解析
         Gson gson = new Gson();
@@ -48,7 +53,6 @@ public class JsonImportService {
         List<ChannelInfo> channelInfoList = jsonMap.get("channel_info");
         ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl(conn);
         channelInfoDao.addBatch(channelInfoList);
-        System.out.println("Import sucess");
 
     }
 
@@ -59,6 +63,7 @@ public class JsonImportService {
             reader = new FileReader(fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            logger.error(e.toString());
         }
         Gson gson = new Gson();
         Type mapType = new TypeToken<Map<String, List<ChannelTagMapping>>>() {
@@ -68,7 +73,6 @@ public class JsonImportService {
         List<ChannelTagMapping> channelTagMappingList = jsonMap.get("channel_tag_mapping");
         ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl(conn);
         channelTagMappingDao.addBatch(channelTagMappingList);
-        System.out.println("Import sucess");
 
     }
 
@@ -78,6 +82,7 @@ public class JsonImportService {
             reader = new FileReader(fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            logger.error(e.toString());
         }
         Gson gson = new Gson();
         Type mapType = new TypeToken<Map<String, List<PType2Info>>>() {
@@ -87,7 +92,6 @@ public class JsonImportService {
         List<PType2Info> pType2InfoList = jsonMap.get("p_type_2_info");
         PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl(conn);
         pType2InfoDao.addBatch(pType2InfoList);
-        System.out.println("Import sucess");
 
     }
 
@@ -98,6 +102,7 @@ public class JsonImportService {
             reader = new FileReader(fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+            logger.error(e.toString());
         }
         Gson gson = new Gson();
         Type mapType = new TypeToken<Map<String, List<TagInfo>>>() {
@@ -107,7 +112,6 @@ public class JsonImportService {
         List<TagInfo> tagInfoList = jsonMap.get("tag_info");
         TagInfoDao tagInfoDao = new TagInfoDaoImpl(conn);
         tagInfoDao.addBatch(tagInfoList);
-        System.out.println("Import sucess");
 
     }
 }

@@ -55,8 +55,9 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -68,8 +69,9 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -81,7 +83,8 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            return "sql erro";
+            logger.error(throwables.toString());
+            return null;
         }
     }
 
@@ -110,6 +113,7 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
         }
     }
 }
