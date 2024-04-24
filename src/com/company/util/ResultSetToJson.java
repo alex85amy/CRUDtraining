@@ -8,7 +8,7 @@ import java.sql.ResultSetMetaData;
 
 public class ResultSetToJson {
 
-    public static final JsonArray ResultSetToJsonArray(ResultSet rs) {
+    public static JsonArray ResultSetToJsonArray(ResultSet rs) {
         JsonObject element = null;
         JsonArray ja = new JsonArray();
         ResultSetMetaData rsmd = null;
@@ -30,7 +30,7 @@ public class ResultSetToJson {
         return ja;
     }
 
-    public static final JsonObject ResultSetToJsonObject(ResultSet rs, String name) {
+    public static JsonObject ResultSetToJsonObject(ResultSet rs, String name) {
         JsonObject element = null;
         JsonArray ja = new JsonArray();
         JsonObject jo = new JsonObject();
@@ -54,7 +54,7 @@ public class ResultSetToJson {
         return jo;
     }
 
-    public static final String ResultSetToJsonString(ResultSet rs, String name) {
+    public static String ResultSetToJsonString(ResultSet rs, String name) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject jo = new JsonObject();
         JsonArray ja = new JsonArray();

@@ -11,8 +11,8 @@ import java.util.List;
 
 public class TagInfoDaoImpl implements TagInfoDao {
 
-    private final Connection conn;
-    private final Logger logger = LogManager.getLogger();
+    private Connection conn;
+    private Logger logger = LogManager.getLogger();
 
     public TagInfoDaoImpl(Connection conn) {
         this.conn = conn;

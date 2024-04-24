@@ -11,8 +11,8 @@ import java.util.List;
 
 public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
-    private final Connection conn;
-    private final Logger logger = LogManager.getLogger();
+    private Connection conn;
+    private Logger logger = LogManager.getLogger();
 
     public ChannelInfoDaoImpl(Connection conn) {
         this.conn = conn;

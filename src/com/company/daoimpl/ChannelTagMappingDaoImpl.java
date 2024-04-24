@@ -11,8 +11,8 @@ import java.util.List;
 
 public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
-    private final Connection conn;
-    private final Logger logger = LogManager.getLogger();
+    private Connection conn;
+    private Logger logger = LogManager.getLogger();
 
     public ChannelTagMappingDaoImpl(Connection conn) {
         this.conn = conn;

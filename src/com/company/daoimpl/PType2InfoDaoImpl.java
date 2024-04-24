@@ -11,8 +11,8 @@ import java.util.List;
 
 public class PType2InfoDaoImpl implements PType2InfoDao {
 
-    private final Connection conn;
-    private final Logger logger = LogManager.getLogger();
+    private Connection conn;
+    private Logger logger = LogManager.getLogger();
 
     public PType2InfoDaoImpl(Connection conn) {
         this.conn = conn;

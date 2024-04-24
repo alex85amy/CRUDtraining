@@ -9,7 +9,6 @@ import com.company.daoimpl.ChannelTagMappingDaoImpl;
 import com.company.daoimpl.PType2InfoDaoImpl;
 import com.company.daoimpl.TagInfoDaoImpl;
 import com.company.util.JDBC;
-import com.google.gson.JsonObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
