@@ -2,6 +2,8 @@ package com.company.dao;
 
 import com.company.bean.TagInfo;
 
+import java.util.List;
+
 public interface TagInfoDao {
     void add(TagInfo tagInfo);
 
@@ -12,4 +14,7 @@ public interface TagInfoDao {
     String findByTagId(int tagId);
 
     String findAll();
+
+    void addBatch(List<TagInfo> tagInfoList);
+
 }

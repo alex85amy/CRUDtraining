@@ -12,12 +12,16 @@ import com.google.gson.JsonObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
 
-public class JsonExport {
+public class JsonExportService {
+
+    private JDBC jdbc = new JDBC();
+    private Connection conn = jdbc.getConnection();
 
     public void exportChannelInfo(String fileName) {
 
-        ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl();
+        ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl(conn);
         String jsonString = channelInfoDao.findAll();
 
         try (FileWriter fileWriter = new FileWriter(fileName)) {
@@ -32,7 +36,7 @@ public class JsonExport {
 
     public void exportChannelTagMapping(String fileName) {
 
-        ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl();
+        ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl(conn);
         String jsonString = channelTagMappingDao.findAll();
 
         try (FileWriter fileWriter = new FileWriter(fileName)) {
@@ -46,7 +50,7 @@ public class JsonExport {
 
     public void exportPType2Info(String fileName) {
 
-        PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl();
+        PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl(conn);
         String jsonString = pType2InfoDao.findAll();
 
         try (FileWriter fileWriter = new FileWriter(fileName)) {
@@ -61,7 +65,7 @@ public class JsonExport {
 
     public void exportTagInfo(String fileName) {
 
-        TagInfoDao tagInfoDao = new TagInfoDaoImpl();
+        TagInfoDao tagInfoDao = new TagInfoDaoImpl(conn);
         String jsonString = tagInfoDao.findAll();
 
         try (FileWriter fileWriter = new FileWriter(fileName)) {

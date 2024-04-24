@@ -2,49 +2,55 @@ package com.company.daoimpl;
 
 import com.company.bean.ChannelInfo;
 import com.company.dao.ChannelInfoDao;
-import com.company.util.JDBC;
 import com.company.util.ResultSetToJson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.List;
 
 public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
-    JDBC jdbc = new JDBC();
+    private final Connection conn;
+    private final Logger logger = LogManager.getLogger();
+
+    public ChannelInfoDaoImpl(Connection conn) {
+        this.conn = conn;
+    }
 
     @Override
     public void add(ChannelInfo channelInfo) {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "INSERT INTO channel_info(source_id, source_area_id, is_used, p_type_2) " +
                     "VALUES ('" + channelInfo.getSourceId() + "','" + channelInfo.getSourceAreaId() + "'," + channelInfo.getIsUsed() + ",'" + channelInfo.getPType2() + "')";
-            int rowsAffected = statement.executeUpdate(insertSQL);
+            statement.executeUpdate(insertSQL);
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables.toString());
         }
     }
 
     @Override
     public boolean delete(int id) {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "DELETE FROM channel_info WHERE auto_id = " + id;
-            int rowsAffected = statement.executeUpdate(insertSQL);
+            statement.executeUpdate(insertSQL);
             return true;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            logger.error(throwables);
+            return false;
         }
-        return false;
     }
 
     @Override
     public boolean update(int id, ChannelInfo channelInfo) {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "UPDATE channel_info SET source_id='" + channelInfo.getSourceId() + "',source_area_id='" + channelInfo.getSourceAreaId() + "',is_used=" + channelInfo.getIsUsed() + ",p_type_2='" + channelInfo.getPType2() +
                     "' WHERE auto_id=" + id;
-            int rowsAffected = statement.executeUpdate(insertSQL);
+            statement.executeUpdate(insertSQL);
             return true;
 
         } catch (SQLException throwables) {
@@ -55,8 +61,7 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
     @Override
     public String findById(int id) {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_info WHERE auto_id=" + id;
             ResultSet rs = statement.executeQuery(insertSQL);
             return ResultSetToJson.ResultSetToJsonString(rs, "channel_info");
@@ -69,23 +74,21 @@ public class ChannelInfoDaoImpl implements ChannelInfoDao {
 
     @Override
     public String findAll() {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_info";
             ResultSet rs = statement.executeQuery(insertSQL);
             return ResultSetToJson.ResultSetToJsonString(rs, "channel_info");
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+            return "sql erro";
         }
-        return null;
     }
 
     @Override
     public void addBatch(List<ChannelInfo> channelInfoList) {
-        try (Connection conn = jdbc.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(
-                     "INSERT INTO channel_info(source_id, source_area_id, is_used, p_type_2) VALUES (?, ?, ?, ?)")
+        try (PreparedStatement preparedStatement = conn.prepareStatement(
+                "INSERT INTO channel_info(source_id, source_area_id, is_used, p_type_2) VALUES (?, ?, ?, ?)")
         ) {
             int batchSize = 1000;//批次數量
             int count = 0; // 計數器，用於計算添加到批次的記錄數量

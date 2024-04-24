@@ -1,7 +1,7 @@
 package com.company;
 
-import com.company.util.JsonExport;
-import com.company.util.JsonImport;
+import com.company.util.JsonExportService;
+import com.company.util.JsonImportService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,26 +21,26 @@ public class CLI {
         }
         String command = parts[0];
         String fileName = parts[1];
-        JsonImport jsonImport = new JsonImport();
-        JsonExport jsonExport = new JsonExport();
+        JsonImportService jsonImportService = new JsonImportService();
+        JsonExportService jsonExportService = new JsonExportService();
         Logger logger = LogManager.getLogger();
 
 
         if (command.equals("--import")) {
             if (fileName.contains("channel_info")) {
-                jsonImport.importChannelInfoBatch(fileName);
+                jsonImportService.importChannelInfo(fileName);
                 logger.info("import channel_info");
 
             } else if (fileName.contains("channel_tag_mapping")) {
-                jsonImport.importChannelTagMappingBatch(fileName);
+                jsonImportService.importChannelTagMapping(fileName);
                 logger.info("import channel_tag_mapping");
 
             } else if (fileName.contains("p_type_2_list")) {
-                jsonImport.importPType2Info(fileName);
+                jsonImportService.importPType2Info(fileName);
                 logger.info("import p_type_2_list");
 
             } else if (fileName.contains("tag_info")) {
-                jsonImport.importTagInfo(fileName);
+                jsonImportService.importTagInfo(fileName);
                 logger.info("import tag_info");
 
             } else
@@ -48,19 +48,19 @@ public class CLI {
 
         } else if (command.equals("--export")) {
             if (fileName.contains("channel_info")) {
-                jsonExport.exportChannelInfo(fileName);
+                jsonExportService.exportChannelInfo(fileName);
                 logger.info("export channel_info");
 
             } else if (fileName.contains("channel_tag_mapping")) {
-                jsonExport.exportChannelTagMapping(fileName);
+                jsonExportService.exportChannelTagMapping(fileName);
                 logger.info("export channel_tag_mapping");
 
             } else if (fileName.contains("p_type_2_list")) {
-                jsonExport.exportPType2Info(fileName);
+                jsonExportService.exportPType2Info(fileName);
                 logger.info("export p_type_2_list");
 
             } else if (fileName.contains("tag_info")) {
-                jsonExport.exportTagInfo(fileName);
+                jsonExportService.exportTagInfo(fileName);
                 logger.info("export tag_info");
 
             } else
@@ -74,16 +74,16 @@ public class CLI {
 //            case "--import":
 //                switch (fileName) {
 //                    case "channel_info":
-//                        jsonImport.importChannelInfoBatch(fileName);
+//                        jsonImportService.importChannelInfoBatch(fileName);
 //                        break;
 //                    case "channel_tag_mapping":
-//                        jsonImport.importChannelTagMappingBatch(fileName);
+//                        jsonImportService.importChannelTagMappingBatch(fileName);
 //                        break;
 //                    case "p_type_2_list":
-//                        jsonImport.importPType2Info(fileName);
+//                        jsonImportService.importPType2Info(fileName);
 //                        break;
 //                    case "tag_info":
-//                        jsonImport.importTagInfo(fileName);
+//                        jsonImportService.importTagInfo(fileName);
 //                        break;
 //                    default:
 //                        System.out.println("Invalid file path for import.");
@@ -92,16 +92,16 @@ public class CLI {
 //            case "--export":
 //                switch (fileName) {
 //                    case "channel_info.json":
-//                        jsonExport.exportChannelInfo();
+//                        jsonExportService.exportChannelInfo();
 //                        break;
 //                    case "channel_tag_mapping.json":
-//                        jsonExport.exportChannelTagMapping();
+//                        jsonExportService.exportChannelTagMapping();
 //                        break;
 //                    case "p_type_2_list.json":
-//                        jsonExport.exportPType2Info();
+//                        jsonExportService.exportPType2Info();
 //                        break;
 //                    case "tag_info.json":
-//                        jsonExport.exportTagInfo();
+//                        jsonExportService.exportTagInfo();
 //                        break;
 //                    default:
 //                        System.out.println("Invalid file path for export.");

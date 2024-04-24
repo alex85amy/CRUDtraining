@@ -2,23 +2,28 @@ package com.company.daoimpl;
 
 import com.company.bean.ChannelTagMapping;
 import com.company.dao.ChannelTagMappingDao;
-import com.company.util.JDBC;
 import com.company.util.ResultSetToJson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.List;
 
 public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
-    JDBC jdbc = new JDBC();
+    private final Connection conn;
+    private final Logger logger = LogManager.getLogger();
+
+    public ChannelTagMappingDaoImpl(Connection conn) {
+        this.conn = conn;
+    }
 
     @Override
     public void add(ChannelTagMapping channelTagMapping) {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "INSERT INTO channel_tag_mapping(s_area_id, tag_id) " +
                     "VALUES ('" + channelTagMapping.getSourceAreaId() + "'," + channelTagMapping.getTagId() + ")";
-            int rowsAffected = statement.executeUpdate(insertSQL);
+            statement.executeUpdate(insertSQL);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -27,10 +32,9 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
     @Override
     public boolean delete(int id) {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "DELETE FROM channel_tag_mapping WHERE auto_id =" + id;
-            int rowsAffected = statement.executeUpdate(insertSQL);
+            statement.executeUpdate(insertSQL);
             return true;
 
         } catch (SQLException throwables) {
@@ -41,11 +45,10 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
     @Override
     public boolean update(int id, ChannelTagMapping channelTagMapping) {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "UPDATE channel_tag_mapping SET s_area_id='" + channelTagMapping.getSourceAreaId() + "',tag_id=" + channelTagMapping.getTagId() +
                     "WHERE auto_id=" + id;
-            int rowsAffected = statement.executeUpdate(insertSQL);
+            statement.executeUpdate(insertSQL);
             return true;
 
         } catch (SQLException throwables) {
@@ -56,8 +59,7 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
     @Override
     public String findById(int id) {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping WHERE auto_id =" + id;
             ResultSet rs = statement.executeQuery(insertSQL);
             return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
@@ -70,8 +72,7 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
     @Override
     public String findBySourceAreaId(String sourceAreaId) {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping WHERE s_area_id ='" + sourceAreaId + "'";
             ResultSet rs = statement.executeQuery(insertSQL);
             return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
@@ -84,8 +85,7 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
     @Override
     public String findByTagId(int tagId) {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping WHERE tag_id =" + tagId;
             ResultSet rs = statement.executeQuery(insertSQL);
             return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
@@ -98,8 +98,7 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
     @Override
     public String findAll() {
-        try (Connection conn = jdbc.getConnection();
-             Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String insertSQL = "SELECT * FROM channel_tag_mapping";
             ResultSet rs = statement.executeQuery(insertSQL);
             return ResultSetToJson.ResultSetToJsonString(rs, "channel_tag_mapping");
@@ -112,10 +111,9 @@ public class ChannelTagMappingDaoImpl implements ChannelTagMappingDao {
 
     @Override
     public void addBatch(List<ChannelTagMapping> channelTagMappingList) {
-        try (Connection conn = jdbc.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(
-                     "INSERT INTO channel_tag_mapping(s_area_id, tag_id) VALUES (?, ?) "
-             )) {
+        try (PreparedStatement preparedStatement = conn.prepareStatement(
+                "INSERT INTO channel_tag_mapping(s_area_id, tag_id) VALUES (?, ?) "
+        )) {
 
             int batchSize = 1000;//批次數量
             int count = 0; // 計數器，用於計算添加到批次的記錄數量

@@ -19,12 +19,17 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-public class JsonImport {
+public class JsonImportService {
 
-    public void importChannelInfoBatch(String fileName) {
+    private JDBC jdbc = new JDBC();
+    private Connection conn = jdbc.getConnection();
+
+    public void importChannelInfo(String fileName) {
         // 讀取 JSON 文件
         FileReader reader = null;
         try {
@@ -41,13 +46,13 @@ public class JsonImport {
 
         // 從解析後的資料中取得頻道標籤對應的清單
         List<ChannelInfo> channelInfoList = jsonMap.get("channel_info");
-        ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl();
+        ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl(conn);
         channelInfoDao.addBatch(channelInfoList);
         System.out.println("Import sucess");
 
     }
 
-    public void importChannelTagMappingBatch(String fileName) {
+    public void importChannelTagMapping(String fileName) {
         // 讀取 JSON 文件
         FileReader reader = null;
         try {
@@ -61,7 +66,7 @@ public class JsonImport {
         Map<String, List<ChannelTagMapping>> jsonMap = gson.fromJson(reader, mapType);
 
         List<ChannelTagMapping> channelTagMappingList = jsonMap.get("channel_tag_mapping");
-        ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl();
+        ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl(conn);
         channelTagMappingDao.addBatch(channelTagMappingList);
         System.out.println("Import sucess");
 
@@ -80,11 +85,8 @@ public class JsonImport {
         Map<String, List<PType2Info>> jsonMap = gson.fromJson(reader, mapType);
 
         List<PType2Info> pType2InfoList = jsonMap.get("p_type_2_info");
-
-        PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl();
-        for (PType2Info pType2Info : pType2InfoList) {
-            pType2InfoDao.add(pType2Info);
-        }
+        PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl(conn);
+        pType2InfoDao.addBatch(pType2InfoList);
         System.out.println("Import sucess");
 
     }
@@ -103,11 +105,8 @@ public class JsonImport {
         Map<String, List<TagInfo>> jsonMap = gson.fromJson(reader, mapType);
 
         List<TagInfo> tagInfoList = jsonMap.get("tag_info");
-
-        TagInfoDao tagInfoDao = new TagInfoDaoImpl();
-        for (TagInfo tagInfo : tagInfoList) {
-            tagInfoDao.add(tagInfo);
-        }
+        TagInfoDao tagInfoDao = new TagInfoDaoImpl(conn);
+        tagInfoDao.addBatch(tagInfoList);
         System.out.println("Import sucess");
 
     }

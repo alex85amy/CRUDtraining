@@ -2,6 +2,8 @@ package com.company.dao;
 
 import com.company.bean.PType2Info;
 
+import java.util.List;
+
 public interface PType2InfoDao {
 
     void add(PType2Info pType2Info);
@@ -13,4 +15,6 @@ public interface PType2InfoDao {
     String findById(int id);
 
     String findAll();
+
+    void addBatch(List<PType2Info> pType2InfoList);
 }
