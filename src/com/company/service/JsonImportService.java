@@ -9,10 +9,6 @@ import com.company.dao.ChannelInfoDao;
 import com.company.dao.ChannelTagMappingDao;
 import com.company.dao.PType2InfoDao;
 import com.company.dao.TagInfoDao;
-import com.company.daoimpl.ChannelInfoDaoImpl;
-import com.company.daoimpl.ChannelTagMappingDaoImpl;
-import com.company.daoimpl.PType2InfoDaoImpl;
-import com.company.daoimpl.TagInfoDaoImpl;
 import com.company.util.JDBC;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -50,7 +46,7 @@ public class JsonImportService {
 
         // 從解析後的資料中取得頻道標籤對應的清單
         List<ChannelInfo> channelInfoList = jsonMap.get("channel_info");
-        ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl(conn);
+        ChannelInfoDao channelInfoDao = new ChannelInfoDao(conn);
         channelInfoDao.addBatch(channelInfoList);
 
     }
@@ -70,7 +66,7 @@ public class JsonImportService {
         Map<String, List<ChannelTagMapping>> jsonMap = gson.fromJson(reader, mapType);
 
         List<ChannelTagMapping> channelTagMappingList = jsonMap.get("channel_tag_mapping");
-        ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl(conn);
+        ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDao(conn);
         channelTagMappingDao.addBatch(channelTagMappingList);
 
     }
@@ -89,7 +85,7 @@ public class JsonImportService {
         Map<String, List<PType2Info>> jsonMap = gson.fromJson(reader, mapType);
 
         List<PType2Info> pType2InfoList = jsonMap.get("p_type_2_info");
-        PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl(conn);
+        PType2InfoDao pType2InfoDao = new PType2InfoDao(conn);
         pType2InfoDao.addBatch(pType2InfoList);
 
     }
@@ -109,7 +105,7 @@ public class JsonImportService {
         Map<String, List<TagInfo>> jsonMap = gson.fromJson(reader, mapType);
 
         List<TagInfo> tagInfoList = jsonMap.get("tag_info");
-        TagInfoDao tagInfoDao = new TagInfoDaoImpl(conn);
+        TagInfoDao tagInfoDao = new TagInfoDao(conn);
         tagInfoDao.addBatch(tagInfoList);
 
     }

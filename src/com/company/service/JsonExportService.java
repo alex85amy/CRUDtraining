@@ -4,10 +4,6 @@ import com.company.dao.ChannelInfoDao;
 import com.company.dao.ChannelTagMappingDao;
 import com.company.dao.PType2InfoDao;
 import com.company.dao.TagInfoDao;
-import com.company.daoimpl.ChannelInfoDaoImpl;
-import com.company.daoimpl.ChannelTagMappingDaoImpl;
-import com.company.daoimpl.PType2InfoDaoImpl;
-import com.company.daoimpl.TagInfoDaoImpl;
 import com.company.util.JDBC;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,7 +20,7 @@ public class JsonExportService {
 
     public void exportChannelInfo(String fileName) {
 
-        ChannelInfoDao channelInfoDao = new ChannelInfoDaoImpl(conn);
+        ChannelInfoDao channelInfoDao = new ChannelInfoDao(conn);
         String jsonString = channelInfoDao.findAll();
 
         try (FileWriter fileWriter = new FileWriter(fileName)) {
@@ -40,7 +36,7 @@ public class JsonExportService {
 
     public void exportChannelTagMapping(String fileName) {
 
-        ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDaoImpl(conn);
+        ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDao(conn);
         String jsonString = channelTagMappingDao.findAll();
 
         try (FileWriter fileWriter = new FileWriter(fileName)) {
@@ -55,7 +51,7 @@ public class JsonExportService {
 
     public void exportPType2Info(String fileName) {
 
-        PType2InfoDao pType2InfoDao = new PType2InfoDaoImpl(conn);
+        PType2InfoDao pType2InfoDao = new PType2InfoDao(conn);
         String jsonString = pType2InfoDao.findAll();
 
         try (FileWriter fileWriter = new FileWriter(fileName)) {
@@ -71,7 +67,7 @@ public class JsonExportService {
 
     public void exportTagInfo(String fileName) {
 
-        TagInfoDao tagInfoDao = new TagInfoDaoImpl(conn);
+        TagInfoDao tagInfoDao = new TagInfoDao(conn);
         String jsonString = tagInfoDao.findAll();
 
         try (FileWriter fileWriter = new FileWriter(fileName)) {
