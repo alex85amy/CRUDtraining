@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PType2InfoDao {
@@ -66,12 +67,16 @@ public class PType2InfoDao {
     }
 
 
-    public String findById(int id) {
+    public PType2Info findById(int id) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM p_type_2_info WHERE auto_id = ?")) {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "p_type_2_info");
+            rs.next();
+            String category = rs.getString("category");
+            String name = rs.getString("name");
+
+            return new PType2Info(id, category, name);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -81,11 +86,19 @@ public class PType2InfoDao {
     }
 
 
-    public String findAll() {
+    public List<PType2Info> findAll() {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM p_type_2_info")) {
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "p_type_2_info");
+            List<PType2Info> list = new ArrayList<>();
+            while (rs.next()) {
+                int autoId = rs.getInt("auto_id");
+                String category = rs.getString("category");
+                String name = rs.getString("name");
+                PType2Info pType2Info = new PType2Info(autoId, category, name);
+                list.add(pType2Info);
+            }
+            return list;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -95,14 +108,16 @@ public class PType2InfoDao {
     }
 
 
-    public String findByCategoryOrName(String category, String name) {
+    public PType2Info findByCategoryOrName(String category, String name) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM p_type_2_info WHERE category = ? OR name= ?")) {
             preparedStatement.setString(1, category);
             preparedStatement.setString(2, name);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "p_type_2_info");
+            rs.next();
+            int autoId = rs.getInt("auto_id");
 
+            return new PType2Info(autoId, category, name);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             logger.error(throwables.toString());
@@ -138,15 +153,22 @@ public class PType2InfoDao {
     }
 
 
-    public String findpagedata(int per_page, int page) {
-        int offset = (page - 1) * per_page;
+    public List<PType2Info> findPageData(int amount, int page) {
+        int offset = (page - 1) * amount;
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM p_type_2_info LIMIT ? OFFSET ?")) {
-            preparedStatement.setInt(1, per_page);
+            preparedStatement.setInt(1, amount);
             preparedStatement.setInt(2, offset);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "p_type_2_info");
-
+            List<PType2Info> list = new ArrayList<>();
+            while (rs.next()) {
+                int autoId = rs.getInt("auto_id");
+                String category = rs.getString("category");
+                String name = rs.getString("name");
+                PType2Info pType2Info = new PType2Info(autoId, category, name);
+                list.add(pType2Info);
+            }
+            return list;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             logger.error(throwables.toString());

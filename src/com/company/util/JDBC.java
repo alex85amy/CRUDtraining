@@ -3,13 +3,9 @@ package com.company.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class JDBC {
@@ -20,12 +16,12 @@ public class JDBC {
 
     public Connection getConnection() {
         try {
-            InputStream inputStream = ClassLoader.getSystemResourceAsStream("application.properties");
+            InputStream inputStream = ClassLoader.getSystemResourceAsStream("datasource.properties");
             Properties properties = new Properties();
             properties.load(inputStream);
-            String url = properties.getProperty("spring.datasource.url");
-            String username = properties.getProperty("spring.datasource.username");
-            String password = properties.getProperty("spring.datasource.password");
+            String url = properties.getProperty("datasource.url");
+            String username = properties.getProperty("datasource.username");
+            String password = properties.getProperty("datasource.password");
 
             conn = DriverManager.getConnection(url, username, password);
 

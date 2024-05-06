@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelInfoDao {
@@ -69,12 +70,18 @@ public class ChannelInfoDao {
     }
 
 
-    public String findById(int id) {
+    public ChannelInfo findById(int id) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_info WHERE auto_id = ?")) {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "channel_info");
+            rs.next();
+            String sourceId = rs.getString("source_id");
+            String sourceAreaId = rs.getString("source_area_id");
+            int isUsed = rs.getInt("is_used");
+            String pType2 = rs.getString("p_type_2");
+
+            return new ChannelInfo(id, sourceId, sourceAreaId, isUsed, pType2);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -84,11 +91,21 @@ public class ChannelInfoDao {
     }
 
 
-    public String findAll() {
+    public List<ChannelInfo> findAll() {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_info")) {
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "channel_info");
+            List<ChannelInfo> list = new ArrayList<>();
+            while (rs.next()) {
+                int autoId = rs.getInt("auto_id");
+                String sourceId = rs.getString("source_id");
+                String sourceAreaId = rs.getString("source_area_id");
+                int isUsed = rs.getInt("is_used");
+                String pType2 = rs.getString("p_type_2");
+                ChannelInfo channelInfo = new ChannelInfo(autoId, sourceId, sourceAreaId, isUsed, pType2);
+                list.add(channelInfo);
+            }
+            return list;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -98,12 +115,18 @@ public class ChannelInfoDao {
     }
 
 
-    public String findBySourceAreaId(String sourceAreaId) {
+    public ChannelInfo findBySourceAreaId(String sourceAreaId) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_info WHERE source_area_id = ?")) {
             preparedStatement.setString(1, sourceAreaId);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "channel_info");
+            rs.next();
+            int autoId = rs.getInt("auto_id");
+            String sourceId = rs.getString("source_id");
+            int isUsed = rs.getInt("is_used");
+            String pType2 = rs.getString("p_type_2");
+
+            return new ChannelInfo(autoId, sourceId, sourceAreaId, isUsed, pType2);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -142,14 +165,24 @@ public class ChannelInfoDao {
     }
 
 
-    public String findpagedata(int per_page, int page) {
-        int offset = (page - 1) * per_page;
+    public List<ChannelInfo> findPageData(int amount, int page) {
+        int offset = (page - 1) * amount;
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM channel_info LIMIT ? OFFSET ?")) {
-            preparedStatement.setInt(1, per_page);
+            preparedStatement.setInt(1, amount);
             preparedStatement.setInt(2, offset);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "channel_info");
+            List<ChannelInfo> list = new ArrayList<>();
+            while (rs.next()) {
+                int autoId = rs.getInt("auto_id");
+                String sourceId = rs.getString("source_id");
+                String sourceAreaId = rs.getString("source_area_id");
+                int isUsed = rs.getInt("is_used");
+                String pType2 = rs.getString("p_type_2");
+                ChannelInfo channelInfo = new ChannelInfo(autoId, sourceId, sourceAreaId, isUsed, pType2);
+                list.add(channelInfo);
+            }
+            return list;
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

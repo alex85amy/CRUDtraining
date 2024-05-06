@@ -10,17 +10,12 @@ import java.util.Scanner;
 public class CLI {
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter command ( --import xxx.json/ --export xxx.json) followed by file name:");
-
-        String input = scanner.nextLine();
-        String[] parts = input.split(" ", 2);
-        if (parts.length != 2) {
+        if (args.length != 2) {
             System.out.println("Invalid input. Please use --import xxx.json/ --export xxx.json");
             return;
         }
-        String command = parts[0];
-        String fileName = parts[1];
+        String command = args[0];
+        String fileName = args[1];
         JsonImportService jsonImportService = new JsonImportService();
         JsonExportService jsonExportService = new JsonExportService();
         Logger logger = LogManager.getLogger();

@@ -1,12 +1,16 @@
 package com.company.dao;
 
 import com.company.bean.TagInfo;
-import com.company.util.ResultSetToJson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class TagInfoDao {
 
@@ -65,12 +69,16 @@ public class TagInfoDao {
     }
 
 
-    public String findByTagId(int tagId) {
+    public TagInfo findByTagId(int tagId) {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM tag_info WHERE tag_id = ?")) {
             preparedStatement.setInt(1, tagId);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "tag_info");
+            rs.next();
+            String tagName = rs.getString("tag_name");
+            int type = rs.getInt("type");
+
+            return new TagInfo(tagId, tagName, type);
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -80,12 +88,19 @@ public class TagInfoDao {
     }
 
 
-    public String findAll() {
+    public List<TagInfo> findAll() {
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM tag_info")) {
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "tag_info");
-
+            List<TagInfo> list = new ArrayList<>();
+            while (rs.next()) {
+                int tagId = rs.getInt("tag_id");
+                String tagName = rs.getString("tag_name");
+                int type = rs.getInt("type");
+                TagInfo tagInfo = new TagInfo(tagId, tagName, type);
+                list.add(tagInfo);
+            }
+            return list;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             logger.error(throwables.toString());
@@ -122,15 +137,22 @@ public class TagInfoDao {
     }
 
 
-    public String findpagedata(int per_page, int page) {
-        int offset = (page - 1) * per_page;
+    public List<TagInfo> findPageData(int amount, int page) {
+        int offset = (page - 1) * amount;
         try (PreparedStatement preparedStatement = conn.prepareStatement(
                 "SELECT * FROM tag_info LIMIT ? OFFSET ?")) {
-            preparedStatement.setInt(1, per_page);
+            preparedStatement.setInt(1, amount);
             preparedStatement.setInt(2, offset);
             ResultSet rs = preparedStatement.executeQuery();
-            return ResultSetToJson.ResultSetToJsonString(rs, "tag_info");
-
+            List<TagInfo> list = new ArrayList<>();
+            while (rs.next()) {
+                int tagId = rs.getInt("tag_id");
+                String tagName = rs.getString("tag_name");
+                int type = rs.getInt("type");
+                TagInfo tagInfo = new TagInfo(tagId, tagName, type);
+                list.add(tagInfo);
+            }
+            return list;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             logger.error(throwables.toString());
@@ -138,4 +160,3 @@ public class TagInfoDao {
         }
     }
 }
-
