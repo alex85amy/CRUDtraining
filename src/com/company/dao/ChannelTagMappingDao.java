@@ -1,18 +1,20 @@
 package com.company.dao;
 
 import com.company.bean.ChannelTagMapping;
-import com.company.util.ResultSetToJson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelTagMappingDao {
 
-    private Connection conn;
-    private Logger logger = LogManager.getLogger();
+    private final Connection conn;
+    private final Logger logger = LogManager.getLogger();
 
     public ChannelTagMappingDao(Connection conn) {
         this.conn = conn;
@@ -26,9 +28,9 @@ public class ChannelTagMappingDao {
             preparedStatement.setInt(2, channelTagMapping.getTagId());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 
@@ -40,9 +42,9 @@ public class ChannelTagMappingDao {
             preparedStatement.executeUpdate();
             return true;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return false;
         }
     }
@@ -57,9 +59,9 @@ public class ChannelTagMappingDao {
             preparedStatement.executeUpdate();
             return true;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return false;
         }
     }
@@ -76,9 +78,9 @@ public class ChannelTagMappingDao {
 
             return new ChannelTagMapping(id, sourceAreaId, tagId);
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -95,9 +97,9 @@ public class ChannelTagMappingDao {
 
             return new ChannelTagMapping(autoId, sourceAreaId, tagId);
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -114,9 +116,9 @@ public class ChannelTagMappingDao {
 
             return new ChannelTagMapping(autoId, sourceAreaId, tagId);
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -133,9 +135,9 @@ public class ChannelTagMappingDao {
 
             return new ChannelTagMapping(autoId, sourceAreaId, tagId);
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -154,9 +156,9 @@ public class ChannelTagMappingDao {
                 list.add(channelTagMapping);
             }
             return list;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -182,9 +184,9 @@ public class ChannelTagMappingDao {
             }
             preparedStatement.executeBatch();// 執行最後批次操作
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
 
         }
     }
@@ -206,9 +208,9 @@ public class ChannelTagMappingDao {
                 list.add(channelTagMapping);
             }
             return list;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }

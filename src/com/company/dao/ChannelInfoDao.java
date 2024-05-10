@@ -1,18 +1,20 @@
 package com.company.dao;
 
 import com.company.bean.ChannelInfo;
-import com.company.util.ResultSetToJson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChannelInfoDao {
 
-    private Connection conn;
-    private Logger logger = LogManager.getLogger();
+    private final Connection conn;
+    private final Logger logger = LogManager.getLogger();
 
     public ChannelInfoDao(Connection conn) {
         this.conn = conn;
@@ -28,9 +30,9 @@ public class ChannelInfoDao {
             preparedStatement.setString(4, channelInfo.getPType2());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 
@@ -42,9 +44,9 @@ public class ChannelInfoDao {
             preparedStatement.executeUpdate();
             return true;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e);
             return false;
         }
     }
@@ -62,9 +64,9 @@ public class ChannelInfoDao {
             preparedStatement.executeUpdate();
             return true;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return false;
         }
     }
@@ -83,9 +85,9 @@ public class ChannelInfoDao {
 
             return new ChannelInfo(id, sourceId, sourceAreaId, isUsed, pType2);
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -107,9 +109,9 @@ public class ChannelInfoDao {
             }
             return list;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -128,9 +130,9 @@ public class ChannelInfoDao {
 
             return new ChannelInfo(autoId, sourceId, sourceAreaId, isUsed, pType2);
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -158,9 +160,9 @@ public class ChannelInfoDao {
             }
             preparedStatement.executeBatch();// 執行最後批次操作
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 
@@ -184,9 +186,9 @@ public class ChannelInfoDao {
             }
             return list;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }

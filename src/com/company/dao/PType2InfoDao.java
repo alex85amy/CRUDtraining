@@ -1,18 +1,20 @@
 package com.company.dao;
 
 import com.company.bean.PType2Info;
-import com.company.util.ResultSetToJson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PType2InfoDao {
 
-    private Connection conn;
-    private Logger logger = LogManager.getLogger();
+    private final Connection conn;
+    private final Logger logger = LogManager.getLogger();
 
     public PType2InfoDao(Connection conn) {
         this.conn = conn;
@@ -26,9 +28,9 @@ public class PType2InfoDao {
             preparedStatement.setString(2, pType2Info.getName());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
 
         }
     }
@@ -41,9 +43,9 @@ public class PType2InfoDao {
             preparedStatement.executeUpdate();
             return true;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return false;
         }
     }
@@ -59,9 +61,9 @@ public class PType2InfoDao {
             preparedStatement.executeUpdate();
             return true;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return false;
         }
     }
@@ -78,9 +80,9 @@ public class PType2InfoDao {
 
             return new PType2Info(id, category, name);
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -100,9 +102,9 @@ public class PType2InfoDao {
             }
             return list;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -118,9 +120,9 @@ public class PType2InfoDao {
             int autoId = rs.getInt("auto_id");
 
             return new PType2Info(autoId, category, name);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
@@ -146,9 +148,9 @@ public class PType2InfoDao {
             }
             preparedStatement.executeBatch();// 執行最後批次操作
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 
@@ -169,9 +171,9 @@ public class PType2InfoDao {
                 list.add(pType2Info);
             }
             return list;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-            logger.error(throwables.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
             return null;
         }
     }
