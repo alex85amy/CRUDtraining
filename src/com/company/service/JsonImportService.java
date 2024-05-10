@@ -15,7 +15,6 @@ import com.google.gson.reflect.TypeToken;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -44,12 +43,9 @@ public class JsonImportService {
             List<ChannelInfo> channelInfoList = jsonMap.get("channel_info");
             ChannelInfoDao channelInfoDao = new ChannelInfoDao(conn);
             channelInfoDao.addBatch(channelInfoList);
-        } catch (FileNotFoundException e) {
-            // 記錄錯誤
-            logger.error(e.toString());
         } catch (IOException e) {
-            // 處理 IO 錯誤
             e.printStackTrace();
+            logger.error(e.toString());
         }
         jdbc.close();
     }
@@ -65,12 +61,9 @@ public class JsonImportService {
             List<ChannelTagMapping> channelTagMappingList = jsonMap.get("channel_tag_mapping");
             ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDao(conn);
             channelTagMappingDao.addBatch(channelTagMappingList);
-        } catch (FileNotFoundException e) {
-            // 記錄錯誤
-            logger.error(e.toString());
         } catch (IOException e) {
-            // 處理 IO 錯誤
             e.printStackTrace();
+            logger.error(e.toString());
         }
         jdbc.close();
     }
@@ -86,12 +79,9 @@ public class JsonImportService {
             List<PType2Info> pType2InfoList = jsonMap.get("p_type_2_info");
             PType2InfoDao pType2InfoDao = new PType2InfoDao(conn);
             pType2InfoDao.addBatch(pType2InfoList);
-        } catch (FileNotFoundException e) {
-            // 記錄錯誤
-            logger.error(e.toString());
         } catch (IOException e) {
-            // 處理 IO 錯誤
             e.printStackTrace();
+            logger.error(e.toString());
         }
         jdbc.close();
     }
@@ -107,12 +97,9 @@ public class JsonImportService {
             List<TagInfo> tagInfoList = jsonMap.get("tag_info");
             TagInfoDao tagInfoDao = new TagInfoDao(conn);
             tagInfoDao.addBatch(tagInfoList);
-        } catch (FileNotFoundException e) {
-            // 記錄錯誤
-            logger.error(e.toString());
         } catch (IOException e) {
-            // 處理 IO 錯誤
             e.printStackTrace();
+            logger.error(e.toString());
         }
         jdbc.close();
     }
