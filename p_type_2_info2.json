@@ -1,0 +1,39 @@
+{
+  "p_type_2_info": [
+    {
+      "auto_id": 1,
+      "category": "forum",
+      "name": "討論區"
+    },
+    {
+      "auto_id": 2,
+      "category": "social",
+      "name": "社群網站"
+    },
+    {
+      "auto_id": 3,
+      "category": "comment",
+      "name": "評論"
+    },
+    {
+      "auto_id": 4,
+      "category": "qa",
+      "name": "問答網站"
+    },
+    {
+      "auto_id": 5,
+      "category": "blog",
+      "name": "部落格"
+    },
+    {
+      "auto_id": 6,
+      "category": "news",
+      "name": "新聞"
+    },
+    {
+      "auto_id": 7,
+      "category": "video",
+      "name": "影音"
+    }
+  ]
+}
