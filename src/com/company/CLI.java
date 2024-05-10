@@ -5,8 +5,6 @@ import com.company.service.JsonImportService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Scanner;
-
 public class CLI {
     public static void main(String[] args) {
 
@@ -64,46 +62,5 @@ public class CLI {
         } else
             System.out.println("Invalid command. Please use --import xxx.json/ --export xxx.json");
 
-
-//        switch (command) {
-//            case "--import":
-//                switch (fileName) {
-//                    case "channel_info":
-//                        jsonImportService.importChannelInfoBatch(fileName);
-//                        break;
-//                    case "channel_tag_mapping":
-//                        jsonImportService.importChannelTagMappingBatch(fileName);
-//                        break;
-//                    case "p_type_2_list":
-//                        jsonImportService.importPType2Info(fileName);
-//                        break;
-//                    case "tag_info":
-//                        jsonImportService.importTagInfo(fileName);
-//                        break;
-//                    default:
-//                        System.out.println("Invalid file path for import.");
-//                }
-//                break;
-//            case "--export":
-//                switch (fileName) {
-//                    case "channel_info.json":
-//                        jsonExportService.exportChannelInfo();
-//                        break;
-//                    case "channel_tag_mapping.json":
-//                        jsonExportService.exportChannelTagMapping();
-//                        break;
-//                    case "p_type_2_list.json":
-//                        jsonExportService.exportPType2Info();
-//                        break;
-//                    case "tag_info.json":
-//                        jsonExportService.exportTagInfo();
-//                        break;
-//                    default:
-//                        System.out.println("Invalid file path for export.");
-//                }
-//                break;
-//            default:
-//                System.out.println("Invalid command. Please use --import xxx.json/ --export xxx.json");
-//        }
     }
 }
