@@ -23,8 +23,7 @@ import java.util.List;
 
 public class JsonExportService {
 
-    private final JDBC jdbc = new JDBC();
-    private final Connection conn = jdbc.getConn();
+    private final Connection conn = JDBC.getConn();
     private final Logger logger = LogManager.getLogger();
 
     public void exportChannelInfo(String fileName) {
@@ -54,13 +53,13 @@ public class JsonExportService {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             gson.toJson(rootObject, fileWriter);
-            System.out.println("JSON object 已成功寫入到檔案: " + fileName);
+            System.out.println("已成功寫入到檔案: " + fileName);
+            logger.info("export channel_info");
         } catch (IOException e) {
-            System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
             logger.error(e.toString());
         }
-        jdbc.close();
+        JDBC.close();
     }
 
     public void exportChannelTagMapping(String fileName) {
@@ -84,13 +83,13 @@ public class JsonExportService {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             gson.toJson(rootObject, fileWriter);
-            System.out.println("JSON object 已成功寫入到檔案: " + fileName);
+            System.out.println("已成功寫入到檔案: " + fileName);
+            logger.info("export channel_tag_mapping");
         } catch (IOException e) {
-            System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
             logger.error(e.toString());
         }
-        jdbc.close();
+        JDBC.close();
     }
 
     public void exportPType2Info(String fileName) {
@@ -114,13 +113,13 @@ public class JsonExportService {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             gson.toJson(rootObject, fileWriter);
-            System.out.println("JSON object 已成功寫入到檔案: " + fileName);
+            System.out.println("已成功寫入到檔案: " + fileName);
+            logger.info("export p_type_2_info");
         } catch (IOException e) {
-            System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
             logger.error(e.toString());
         }
-        jdbc.close();
+        JDBC.close();
     }
 
     public void exportTagInfo(String fileName) {
@@ -144,12 +143,12 @@ public class JsonExportService {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter fileWriter = new FileWriter(fileName)) {
             gson.toJson(rootObject, fileWriter);
-            System.out.println("JSON object 已成功寫入到檔案: " + fileName);
+            System.out.println("已成功寫入到檔案: " + fileName);
+            logger.info("export tag_info");
         } catch (IOException e) {
-            System.err.println("寫入檔案時發生錯誤: " + e.getMessage());
             e.printStackTrace();
             logger.error(e.toString());
         }
-        jdbc.close();
+        JDBC.close();
     }
 }

@@ -24,8 +24,7 @@ import java.util.Map;
 
 public class JsonImportService {
 
-    private final JDBC jdbc = new JDBC();
-    private final Connection conn = jdbc.getConn();
+    private final Connection conn = JDBC.getConn();
     private final Logger logger = LogManager.getLogger();
 
     public void importChannelInfo(String fileName) {
@@ -43,11 +42,12 @@ public class JsonImportService {
             List<ChannelInfo> channelInfoList = jsonMap.get("channel_info");
             ChannelInfoDao channelInfoDao = new ChannelInfoDao(conn);
             channelInfoDao.addBatch(channelInfoList);
+            logger.info("import channel_info");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
         }
-        jdbc.close();
+        JDBC.close();
     }
 
     public void importChannelTagMapping(String fileName) {
@@ -61,11 +61,12 @@ public class JsonImportService {
             List<ChannelTagMapping> channelTagMappingList = jsonMap.get("channel_tag_mapping");
             ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDao(conn);
             channelTagMappingDao.addBatch(channelTagMappingList);
+            logger.info("import channel_tag_mapping");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
         }
-        jdbc.close();
+        JDBC.close();
     }
 
     public void importPType2Info(String fileName) {
@@ -79,11 +80,12 @@ public class JsonImportService {
             List<PType2Info> pType2InfoList = jsonMap.get("p_type_2_info");
             PType2InfoDao pType2InfoDao = new PType2InfoDao(conn);
             pType2InfoDao.addBatch(pType2InfoList);
+            logger.info("import p_type_2_info");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
         }
-        jdbc.close();
+        JDBC.close();
     }
 
     public void importTagInfo(String fileName) {
@@ -97,10 +99,11 @@ public class JsonImportService {
             List<TagInfo> tagInfoList = jsonMap.get("tag_info");
             TagInfoDao tagInfoDao = new TagInfoDao(conn);
             tagInfoDao.addBatch(tagInfoList);
+            logger.info("import tag_info");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
         }
-        jdbc.close();
+        JDBC.close();
     }
 }
