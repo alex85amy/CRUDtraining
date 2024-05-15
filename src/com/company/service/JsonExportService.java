@@ -37,13 +37,7 @@ public class JsonExportService {
         // 創建存放 ChannelInfo 的 JsonArray
         JsonArray jsonArray = new JsonArray();
         for (ChannelInfo channelInfo : list) {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("auto_id", channelInfo.getAutoId());
-            jsonObject.addProperty("source_id", channelInfo.getSourceId());
-            jsonObject.addProperty("source_area_id", channelInfo.getSourceAreaId());
-            jsonObject.addProperty("is_used", channelInfo.getIsUsed());
-            jsonObject.addProperty("p_type_2", channelInfo.getPType2());
-            jsonArray.add(jsonObject);
+            jsonArray.add(new Gson().toJsonTree(channelInfo));
         }
 
         // 將 ChannelInfo 數組添加到根 JsonObject 中
@@ -71,11 +65,7 @@ public class JsonExportService {
 
         JsonArray jsonArray = new JsonArray();
         for (ChannelTagMapping channelTagMapping : list) {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("auto_id", channelTagMapping.getAutoId());
-            jsonObject.addProperty("s_area_id", channelTagMapping.getSourceAreaId());
-            jsonObject.addProperty("tag_id", channelTagMapping.getTagId());
-            jsonArray.add(jsonObject);
+            jsonArray.add(new Gson().toJsonTree(channelTagMapping));
         }
 
         rootObject.add("channel_tag_mapping", jsonArray);
@@ -101,11 +91,7 @@ public class JsonExportService {
 
         JsonArray jsonArray = new JsonArray();
         for (PType2Info pType2Info : list) {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("auto_id", pType2Info.getAutoId());
-            jsonObject.addProperty("category", pType2Info.getCategory());
-            jsonObject.addProperty("name", pType2Info.getName());
-            jsonArray.add(jsonObject);
+            jsonArray.add(new Gson().toJsonTree(pType2Info));
         }
 
         rootObject.add("p_type_2_info", jsonArray);
@@ -131,11 +117,7 @@ public class JsonExportService {
 
         JsonArray jsonArray = new JsonArray();
         for (TagInfo tagInfo : list) {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("tag_id", tagInfo.getTagId());
-            jsonObject.addProperty("tag_name", tagInfo.getTagName());
-            jsonObject.addProperty("type", tagInfo.getType());
-            jsonArray.add(jsonObject);
+            jsonArray.add(new Gson().toJsonTree(tagInfo));
         }
 
         rootObject.add("tag_info", jsonArray);
