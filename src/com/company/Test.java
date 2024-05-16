@@ -9,7 +9,7 @@ public class Test {
 //        jsonExport.exportChannelInfo("channel_info_0516.json");
 //        jsonExport.exportChannelTagMapping("channel_tag_mapping_0516.json");
 //        jsonExport.exportPType2Info("p_type_2_info_0516.json");
-//        jsonExport.exportTagInfo("tag_info_0516.json");
+        jsonExport.exportTagInfo("tag_info_0516.json");
         JsonImportService jsonImport = new JsonImportService();
 //        jsonImport.importPType2Info("p_type_2_info_0516.json");
 //        jsonImport.importTagInfo("tag_info_0516.json");

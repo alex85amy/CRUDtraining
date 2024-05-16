@@ -167,7 +167,7 @@ public class JsonExportService {
             fileWriter.write("\n]\n}"); // json尾
             fileWriter.flush();
             System.out.println("已成功寫入到檔案: " + fileName);
-            logger.info("export channel_info");
+            logger.info("export tag_info");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
