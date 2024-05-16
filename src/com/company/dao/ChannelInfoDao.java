@@ -193,6 +193,19 @@ public class ChannelInfoDao {
         }
     }
 
+    public int findNumOfData() {
+        try (PreparedStatement preparedStatement = conn.prepareStatement(
+                "SELECT COUNT(auto_id) FROM channel_info")) {
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.next();
+            return rs.getInt("COUNT(auto_id)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            logger.error(e.toString());
+        }
+        return 0;
+    }
+
 }
 
 

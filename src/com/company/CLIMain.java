@@ -3,7 +3,7 @@ package com.company;
 import com.company.service.JsonExportService;
 import com.company.service.JsonImportService;
 
-public class CLI {
+public class CLIMain {
     public static void main(String[] args) {
 
         if (args.length != 2) {

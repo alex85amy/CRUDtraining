@@ -11,8 +11,6 @@ import com.company.dao.TagInfoDao;
 import com.company.util.JDBC;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,50 +27,71 @@ public class JsonExportService {
     public void exportChannelInfo(String fileName) {
 
         ChannelInfoDao channelInfoDao = new ChannelInfoDao(conn);
-        List<ChannelInfo> list = channelInfoDao.findAll();
-
-        // 創建根 JsonObject
-        JsonObject rootObject = new JsonObject();
-
-        // 創建存放 ChannelInfo 的 JsonArray
-        JsonArray jsonArray = new JsonArray();
-        for (ChannelInfo channelInfo : list) {
-            jsonArray.add(new Gson().toJsonTree(channelInfo));
-        }
-
-        // 將 ChannelInfo 數組添加到根 JsonObject 中
-        rootObject.add("channel_info", jsonArray);
-
         // 初始化 Gson 時設置格式化選項
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
-            gson.toJson(rootObject, fileWriter);
+        //將資料批次查詢並放入json
+        int amount = 100000;
+        int NumOfData = channelInfoDao.findNumOfData();
+        int pages = channelInfoDao.findNumOfData() / amount + (NumOfData % amount == 0 ? 0 : 1);
+        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+            fileWriter.write("""
+                    {
+                    "channel_info":
+                    [
+                    """); // json頭
+
+            for (int i = 1; i <= pages; i++) {
+                List<ChannelInfo> list = channelInfoDao.findPageData(amount, i);
+                for (int j = 0; j < list.size(); j++) {
+                    ChannelInfo channelInfo = list.get(j);
+                    fileWriter.write(gson.toJson(channelInfo));
+                    if (i < pages || j < list.size() - 1) {
+                        fileWriter.write(",\n"); //除了最後一個物件外都有逗號換行
+                    }
+                }
+                fileWriter.flush();
+            }
+            fileWriter.write("\n]\n}"); // json尾
+            fileWriter.flush();
             System.out.println("已成功寫入到檔案: " + fileName);
             logger.info("export channel_info");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
         }
+
         JDBC.close();
     }
 
     public void exportChannelTagMapping(String fileName) {
 
         ChannelTagMappingDao channelTagMappingDao = new ChannelTagMappingDao(conn);
-        List<ChannelTagMapping> list = channelTagMappingDao.findAll();
-
-        JsonObject rootObject = new JsonObject();
-
-        JsonArray jsonArray = new JsonArray();
-        for (ChannelTagMapping channelTagMapping : list) {
-            jsonArray.add(new Gson().toJsonTree(channelTagMapping));
-        }
-
-        rootObject.add("channel_tag_mapping", jsonArray);
-
+        // 初始化 Gson 時設置格式化選項
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
-            gson.toJson(rootObject, fileWriter);
+        //將資料批次查詢並放入json
+        int amount = 100000;
+        int NumOfData = channelTagMappingDao.findNumOfData();
+        int pages = channelTagMappingDao.findNumOfData() / amount + (NumOfData % amount == 0 ? 0 : 1);
+        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+            fileWriter.write("""
+                    {
+                    "channel_tag_mapping":
+                    [
+                    """); // json頭
+
+            for (int i = 1; i <= pages; i++) {
+                List<ChannelTagMapping> list = channelTagMappingDao.findPageData(amount, i);
+                for (int j = 0; j < list.size(); j++) {
+                    ChannelTagMapping channelTagMapping = list.get(j);
+                    fileWriter.write(gson.toJson(channelTagMapping));
+                    if (i < pages || j < list.size() - 1) {
+                        fileWriter.write(",\n"); //除了最後一個物件外都有逗號換行
+                    }
+                }
+                fileWriter.flush();
+            }
+            fileWriter.write("\n]\n}"); // json尾
+            fileWriter.flush();
             System.out.println("已成功寫入到檔案: " + fileName);
             logger.info("export channel_tag_mapping");
         } catch (IOException e) {
@@ -85,20 +104,31 @@ public class JsonExportService {
     public void exportPType2Info(String fileName) {
 
         PType2InfoDao pType2InfoDao = new PType2InfoDao(conn);
-        List<PType2Info> list = pType2InfoDao.findAll();
-
-        JsonObject rootObject = new JsonObject();
-
-        JsonArray jsonArray = new JsonArray();
-        for (PType2Info pType2Info : list) {
-            jsonArray.add(new Gson().toJsonTree(pType2Info));
-        }
-
-        rootObject.add("p_type_2_info", jsonArray);
-
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
-            gson.toJson(rootObject, fileWriter);
+        int amount = 30;
+        int NumOfData = pType2InfoDao.findNumOfData();
+        int pages = pType2InfoDao.findNumOfData() / amount + (NumOfData % amount == 0 ? 0 : 1);
+
+        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+            fileWriter.write("""
+                    {
+                    "p_type_2_info":
+                    [
+                    """); // json頭
+
+            for (int i = 1; i <= pages; i++) {
+                List<PType2Info> list = pType2InfoDao.findPageData(amount, i);
+                for (int j = 0; j < list.size(); j++) {
+                    PType2Info pType2Info = list.get(j);
+                    fileWriter.write(gson.toJson(pType2Info));
+                    if (i < pages || j < list.size() - 1) {
+                        fileWriter.write(",\n"); //除了最後一個物件外都有逗號換行
+                    }
+                }
+                fileWriter.flush();
+            }
+            fileWriter.write("\n]\n}"); // json尾
+            fileWriter.flush();
             System.out.println("已成功寫入到檔案: " + fileName);
             logger.info("export p_type_2_info");
         } catch (IOException e) {
@@ -111,26 +141,38 @@ public class JsonExportService {
     public void exportTagInfo(String fileName) {
 
         TagInfoDao tagInfoDao = new TagInfoDao(conn);
-        List<TagInfo> list = tagInfoDao.findAll();
-
-        JsonObject rootObject = new JsonObject();
-
-        JsonArray jsonArray = new JsonArray();
-        for (TagInfo tagInfo : list) {
-            jsonArray.add(new Gson().toJsonTree(tagInfo));
-        }
-
-        rootObject.add("tag_info", jsonArray);
-
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter fileWriter = new FileWriter(fileName)) {
-            gson.toJson(rootObject, fileWriter);
+        int amount = 30;
+        int NumOfData = tagInfoDao.findNumOfData();
+        int pages = tagInfoDao.findNumOfData() / amount + (NumOfData % amount == 0 ? 0 : 1);
+
+        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+            fileWriter.write("""
+                    {
+                    "tag_info":
+                    [
+                    """); // json頭
+
+            for (int i = 1; i <= pages; i++) {
+                List<TagInfo> list = tagInfoDao.findPageData(amount, i);
+                for (int j = 0; j < list.size(); j++) {
+                    TagInfo tagInfo = list.get(j);
+                    fileWriter.write(gson.toJson(tagInfo));
+                    if (i < pages || j < list.size() - 1) {
+                        fileWriter.write(",\n"); //除了最後一個物件外都有逗號換行
+                    }
+                }
+                fileWriter.flush();
+            }
+            fileWriter.write("\n]\n}"); // json尾
+            fileWriter.flush();
             System.out.println("已成功寫入到檔案: " + fileName);
-            logger.info("export tag_info");
+            logger.info("export channel_info");
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
         }
+
         JDBC.close();
     }
 }
