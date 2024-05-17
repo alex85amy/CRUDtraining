@@ -6,11 +6,11 @@ import com.company.service.JsonImportService;
 public class Test {
     public static void main(String[] args) {
         JsonExportService jsonExport = new JsonExportService();
-//        jsonExport.exportChannelInfo("channel_info_0516.json");
+        jsonExport.exportChannelInfo("channel_info_0516.json");
 //        jsonExport.exportChannelTagMapping("channel_tag_mapping_0516.json");
 //        jsonExport.exportPType2Info("p_type_2_info_0516.json");
-        jsonExport.exportTagInfo("tag_info_0516.json");
-        JsonImportService jsonImport = new JsonImportService();
+//        jsonExport.exportTagInfo("tag_info_0516.json");
+//        JsonImportService jsonImport = new JsonImportService();
 //        jsonImport.importPType2Info("p_type_2_info_0516.json");
 //        jsonImport.importTagInfo("tag_info_0516.json");
 

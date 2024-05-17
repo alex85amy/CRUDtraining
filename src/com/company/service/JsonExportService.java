@@ -32,7 +32,7 @@ public class JsonExportService {
         //將資料批次查詢並放入json
         int amount = 100000;
         int NumOfData = channelInfoDao.findNumOfData();
-        int pages = channelInfoDao.findNumOfData() / amount + (NumOfData % amount == 0 ? 0 : 1);
+        int pages = NumOfData / amount + (NumOfData % amount == 0 ? 0 : 1);
         try (FileWriter fileWriter = new FileWriter(fileName, true)) {
             fileWriter.write("""
                     {
@@ -53,14 +53,14 @@ public class JsonExportService {
             }
             fileWriter.write("\n]\n}"); // json尾
             fileWriter.flush();
-            System.out.println("已成功寫入到檔案: " + fileName);
-            logger.info("export channel_info");
+            logger.info("export " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
+        } finally {
+            JDBC.close();
         }
 
-        JDBC.close();
     }
 
     public void exportChannelTagMapping(String fileName) {
@@ -92,13 +92,13 @@ public class JsonExportService {
             }
             fileWriter.write("\n]\n}"); // json尾
             fileWriter.flush();
-            System.out.println("已成功寫入到檔案: " + fileName);
-            logger.info("export channel_tag_mapping");
+            logger.info("export " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
+        } finally {
+            JDBC.close();
         }
-        JDBC.close();
     }
 
     public void exportPType2Info(String fileName) {
@@ -129,13 +129,13 @@ public class JsonExportService {
             }
             fileWriter.write("\n]\n}"); // json尾
             fileWriter.flush();
-            System.out.println("已成功寫入到檔案: " + fileName);
-            logger.info("export p_type_2_info");
+            logger.info("export " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
+        } finally {
+            JDBC.close();
         }
-        JDBC.close();
     }
 
     public void exportTagInfo(String fileName) {
@@ -166,13 +166,12 @@ public class JsonExportService {
             }
             fileWriter.write("\n]\n}"); // json尾
             fileWriter.flush();
-            System.out.println("已成功寫入到檔案: " + fileName);
-            logger.info("export tag_info");
+            logger.info("export " + fileName);
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
+        } finally {
+            JDBC.close();
         }
-
-        JDBC.close();
     }
 }

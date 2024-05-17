@@ -46,8 +46,9 @@ public class JsonImportService {
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
+        } finally {
+            JDBC.close();
         }
-        JDBC.close();
     }
 
     public void importChannelTagMapping(String fileName) {
@@ -65,8 +66,9 @@ public class JsonImportService {
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
+        } finally {
+            JDBC.close();
         }
-        JDBC.close();
     }
 
     public void importPType2Info(String fileName) {
@@ -84,8 +86,9 @@ public class JsonImportService {
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
+        } finally {
+            JDBC.close();
         }
-        JDBC.close();
     }
 
     public void importTagInfo(String fileName) {
@@ -103,7 +106,8 @@ public class JsonImportService {
         } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.toString());
+        } finally {
+            JDBC.close();
         }
-        JDBC.close();
     }
 }
