@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class JsonImportService {
 
     public void importChannelInfo(String fileName) {
         // 使用 try-with-resources 確保資源被正確關閉
-        try (FileReader reader = new FileReader(fileName)) {
+        try (FileReader reader = new FileReader(fileName, StandardCharsets.UTF_8)) {
             // 使用 Gson 進行 JSON 解析
             Gson gson = new Gson();
             // 使用 TypeToken 來獲取泛型類型信息
@@ -52,7 +53,7 @@ public class JsonImportService {
     }
 
     public void importChannelTagMapping(String fileName) {
-        try (FileReader reader = new FileReader(fileName)) {
+        try (FileReader reader = new FileReader(fileName, StandardCharsets.UTF_8)) {
             Gson gson = new Gson();
 
             Type mapType = new TypeToken<Map<String, List<ChannelTagMapping>>>() {
@@ -72,7 +73,7 @@ public class JsonImportService {
     }
 
     public void importPType2Info(String fileName) {
-        try (FileReader reader = new FileReader(fileName)) {
+        try (FileReader reader = new FileReader(fileName, StandardCharsets.UTF_8)) {
             Gson gson = new Gson();
 
             Type mapType = new TypeToken<Map<String, List<PType2Info>>>() {
@@ -92,7 +93,7 @@ public class JsonImportService {
     }
 
     public void importTagInfo(String fileName) {
-        try (FileReader reader = new FileReader(fileName)) {
+        try (FileReader reader = new FileReader(fileName, StandardCharsets.UTF_8)) {
             Gson gson = new Gson();
 
             Type mapType = new TypeToken<Map<String, List<TagInfo>>>() {

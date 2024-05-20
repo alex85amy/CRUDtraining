@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class JsonExportService {
         int amount = 100000;
         int NumOfData = channelInfoDao.findNumOfData();
         int pages = NumOfData / amount + (NumOfData % amount == 0 ? 0 : 1);
-        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+        try (FileWriter fileWriter = new FileWriter(fileName, StandardCharsets.UTF_8, true)) {
             fileWriter.write("""
                     {
                     "channel_info":
@@ -60,7 +61,6 @@ public class JsonExportService {
         } finally {
             JDBC.close();
         }
-
     }
 
     public void exportChannelTagMapping(String fileName) {
@@ -71,8 +71,8 @@ public class JsonExportService {
         //將資料批次查詢並放入json
         int amount = 100000;
         int NumOfData = channelTagMappingDao.findNumOfData();
-        int pages = channelTagMappingDao.findNumOfData() / amount + (NumOfData % amount == 0 ? 0 : 1);
-        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+        int pages = NumOfData / amount + (NumOfData % amount == 0 ? 0 : 1);
+        try (FileWriter fileWriter = new FileWriter(fileName, StandardCharsets.UTF_8, true)) {
             fileWriter.write("""
                     {
                     "channel_tag_mapping":
@@ -107,9 +107,9 @@ public class JsonExportService {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         int amount = 30;
         int NumOfData = pType2InfoDao.findNumOfData();
-        int pages = pType2InfoDao.findNumOfData() / amount + (NumOfData % amount == 0 ? 0 : 1);
+        int pages = NumOfData / amount + (NumOfData % amount == 0 ? 0 : 1);
 
-        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+        try (FileWriter fileWriter = new FileWriter(fileName, StandardCharsets.UTF_8, true)) {
             fileWriter.write("""
                     {
                     "p_type_2_info":
@@ -144,9 +144,9 @@ public class JsonExportService {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         int amount = 30;
         int NumOfData = tagInfoDao.findNumOfData();
-        int pages = tagInfoDao.findNumOfData() / amount + (NumOfData % amount == 0 ? 0 : 1);
+        int pages = NumOfData / amount + (NumOfData % amount == 0 ? 0 : 1);
 
-        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+        try (FileWriter fileWriter = new FileWriter(fileName, StandardCharsets.UTF_8, true)) {
             fileWriter.write("""
                     {
                     "tag_info":
