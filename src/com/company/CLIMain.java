@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.service.JsonExportService;
 import com.company.service.JsonImportService;
+import com.company.util.JDBC;
 
 public class CLIMain {
     public static void main(String[] args) {
@@ -30,6 +31,7 @@ public class CLIMain {
 
                 } else {
                     System.out.println("Invalid file name for import.");
+                    JDBC.close();
                 }
 
             } else if (command.equals("--export")) {
@@ -47,8 +49,10 @@ public class CLIMain {
                 } else if (fileName.contains("tag_info")) {
                     jsonExportService.exportTagInfo(fileName);
 
-                } else
+                } else {
                     System.out.println("Invalid file name for export.");
+                    JDBC.close();
+                }
 
             } else
                 System.out.println("Please use --import xxx.json/ --export xxx.json");
